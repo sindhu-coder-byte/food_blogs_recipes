@@ -1,0 +1,444 @@
+/* ===============================
+   🌐 LAYOUT
+================================= */
+.blog-flex {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* MAIN CONTENT */
+.blog-flex > div:first-child {
+  flex: 2;
+  min-width: 0; /* VERY IMPORTANT */
+}
+
+/* SIDEBAR */
+.blog-flex > div:last-child {
+  flex: 1;
+}
+@media (max-width: 900px) {
+  .blog-flex {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section {
+  background: #F9FAFB;
+}
+
+/* ===============================
+   📦 CARD UI
+================================= */
+.card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+/* ===============================
+   📌 SIDEBAR
+================================= */
+.sidebar {
+  position: sticky;
+  top: 90px;
+}
+
+/* ===============================
+   📝 BLOG HEADER
+================================= */
+.blog-hero-banner {
+  position: relative;
+  height: 360px;
+
+  /* ✅ Add image */
+  background: url("/static/myapp/images/ChatGPT_Image7.png") center/cover no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ✅ Gradient overlay */
+.blog-hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+   /* 🔥 soft white overlay */
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* ✅ Content above overlay */
+.blog-hero-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #111827; /* 🔥 dark text */
+}
+
+@media (max-width: 768px) {
+  .blog-hero-banner {
+    height: 180px;
+  }
+
+  .blog-hero-overlay h1 {
+    font-size: 22px;
+  }
+}
+/* ===============================
+   🖼 IMAGE SECTION
+================================= */
+.blog-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+/* ===============================
+   📄 CONTENT
+================================= */
+.blog-content {
+  line-height: 1.8;
+  color: #111827;
+  font-size: 15px;
+}
+
+/* ===============================
+  INGREDIENTS
+================================= */
+.ingredients-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredients-card li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  display: flex;
+  align-items: center;
+}
+
+.ingredients-card input {
+  margin-right: 10px;
+  accent-color: #FE4A51;
+  transform: scale(1.1);
+}
+
+/* ===============================
+   🍳 STEPS UI (PRO)
+================================= */
+.steps-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.step-card {
+  display: grid;
+  grid-template-columns: 50px 160px 1fr;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #F3F4F6;
+  transition: 0.25s;
+}
+
+.step-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.step-number {
+  width: 42px;
+  height: 42px;
+  background: #FE4A51;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.step-img {
+  width: 150px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.step-content {
+  color: #374151;
+  font-size: 14px;
+}
+
+/* ===============================
+   📑 TOC
+================================= */
+.toc a {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #2563EB;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.toc a:hover {
+  color: #1D4ED8;
+  transform: translateX(4px);
+}
+
+/* ===============================
+   🔥 SIDEBAR POSTS
+================================= */
+.sidebar-post {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: #111;
+  padding: 6px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.sidebar-post img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.sidebar-post:hover {
+  background: #F9FAFB;
+}
+
+/* ===============================
+   💬 COMMENTS
+================================= */
+.comment-box {
+  border-bottom: 1px solid #eee;
+  padding: 14px 0;
+}
+
+.comment-box strong {
+  color: #111827;
+}
+
+.comment-box p {
+  margin: 6px 0;
+  color: #374151;
+}
+
+.reply-box {
+  margin-left: 30px;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+/* ===============================
+   ✍ INPUTS
+================================= */
+textarea {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+}
+
+textarea:focus {
+  border-color: #FE4A51;
+}
+
+/* ===============================
+   🔘 BUTTON
+================================= */
+.blog-btn {
+  background: #FE4A51;
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.blog-btn:hover {
+  background: #ff7075;
+}
+
+/* EXTRA CLEAN STRUCTURE */
+
+.hero-sm {
+  height: 200px;
+}
+
+.blog-title {
+  margin: 0;
+}
+
+.blog-meta {
+  margin-top: 6px;
+}
+
+.blog-container {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* REMOVE PADDING ONLY FOR IMAGE AREA */
+.blog-main-card.no-padding {
+  padding: 0;
+  overflow: hidden;
+}
+/* EXISTING GRID - KEEP AS IT IS */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.blog-grid img {
+  height: 210px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* ===============================
+   1 LARGE + 3 SMALL
+================================= */
+/* ===============================
+   🔥 BLOG THUMBS (ISOLATED)
+================================= */
+
+.bt-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+/* BIG IMAGE */
+.bt-big {
+  width: 100%;
+  height: 100%;
+}
+
+.bt-big img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 0 0 12px;
+  display: block;
+}
+
+/* SMALL COLUMN */
+.bt-small {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.bt-thumb {
+  width: 100%;
+  height: 100%;
+}
+
+.bt-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 12px 12px 0;
+  display: block;
+}
+
+/* EMPTY FALLBACK */
+.bt-empty {
+  background: #eee;
+  border-radius: 10px;
+}
+
+/* ===============================
+   📱 RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+  .bt-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bt-small {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: none;
+  }
+
+  .bt-big img {
+    border-radius: 12px;
+  }
+
+  .bt-thumb img {
+    border-radius: 10px;
+  }
+}
+.blog-content-wrapper {
+  padding: 18px;
+  margin-top: 10px; 
+}
+.blog-description {
+  color: #6B7280;
+}
+
+.blog-actions {
+  margin-top: 18px;
+}
+
+.comments-card {
+  max-width: 980px;
+  margin: 20px auto;
+}
+
+.reply-form {
+  display: none;
+}
+
+/* INGREDIENTS FIX */
+.ingredients-card ul.ingredients-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.ingredients-card ul.ingredients-list li {
+  display: flex;
+  align-items: center;     /* vertical center */
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px dashed #eee;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* BULLET */
+.ingredients-card ul.ingredients-list li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #FE4A51;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;   /* ✅ MAGIC FIX */
+}
+

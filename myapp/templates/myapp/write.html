@@ -1,0 +1,518 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}Write Recipe{% endblock %}
+
+{% block extra_css %}
+{% comment %} <link rel="stylesheet" href="{% static 'myapp/css/common-blog.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'myapp/css/write.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="rb-hero"
+  style="background: url('{% static 'myapp/images/ChatGPT_Image3.png' %}') no-repeat center center/cover;">
+  <div class="rb-hero-content">
+    <h1>Write a Recipe Post</h1>
+    <p>Share your recipe with the TastyBites community.</p>
+  </div>
+</section>
+
+<main class="write-wrap">
+  <div class="write-container">
+    <div class="write-left">
+      <div class="write-card">
+        <div class="write-card-head">
+          <h2>Create your recipe</h2>
+          <p>Step 1: Add details · Step 2: Choose layout · Step 3: Upload photos.</p>
+        </div>
+<form method="post" enctype="multipart/form-data" class="write-form" id="recipeForm">
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <div class="write-errors">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <!-- AUTHOR -->
+  <div class="write-field">
+    <label>Author</label>
+    <input type="text" value="{{ request.user.username }}" readonly class="write-input">
+  </div>
+
+  <!-- TITLE + CATEGORY -->
+  <div class="write-grid-2">
+    <div class="write-field">
+      <label>Title</label>
+      {{ form.title }}
+      <div class="write-field-errors">{{ form.title.errors }}</div>
+    </div>
+
+    <div class="write-field">
+      <label>Category</label>
+      {{ form.category }}
+      <div class="write-field-errors">{{ form.category.errors }}</div>
+    </div>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="write-field">
+    <label>Short description</label>
+    {{ form.description }}
+    <div class="write-char-counter"><span id="descCount">0</span>/140</div>
+    <div class="write-field-errors">{{ form.description.errors }}</div>
+  </div>
+
+  <!-- ⏱ RECIPE TIME (SMART UX) -->
+<div class="write-field">
+  <label>Recipe Time</label>
+
+  <div class="write-grid-3">
+
+    <!-- PREP TIME -->
+    <div>
+      <input type="text" name="prep_time" id="prepTimeInput" 
+        placeholder="Prep time (e.g. 10 min)" class="write-input">
+
+      <div class="time-suggestions">
+        <span data-value="5 min">5m</span>
+        <span data-value="10 min">10m</span>
+        <span data-value="15 min">15m</span>
+        <span data-value="30 min">30m</span>
+      </div>
+    </div>
+
+    <!-- COOK TIME -->
+    <div>
+      <input type="text" name="cook_time" id="cookTimeInput" 
+        placeholder="Cook time (e.g. 20 min)" class="write-input">
+
+      <div class="time-suggestions">
+        <span data-value="10 min">10m</span>
+        <span data-value="20 min">20m</span>
+        <span data-value="30 min">30m</span>
+        <span data-value="1 hr">1h</span>
+      </div>
+    </div>
+
+    <!-- SERVINGS -->
+    <div>
+      <input type="text" name="servings" 
+        placeholder="Servings (e.g. 4)" class="write-input">
+    </div>
+
+  </div>
+</div>
+
+  <!-- INGREDIENTS -->
+  <div class="write-field">
+    <label>Ingredients</label>
+    <textarea name="ingredients" rows="5"
+      placeholder="• 2 cups rice&#10;• 1 tsp salt"></textarea>
+  </div>
+
+  {% comment %} <!-- TABLE OF CONTENTS -->
+  <div class="write-field">
+    <label>Table of Contents</label>
+    <ul id="tocPreview"></ul>
+  </div> {% endcomment %}
+
+  <!-- LAYOUT -->
+  <div class="write-field write-field-layout">
+    <div class="write-field-header">
+      <label>Layout style</label>
+      <span class="write-label-hint">Choose how your photos appear</span>
+    </div>
+
+    <div class="write-layout-options" style="display:none;">
+      {{ form.layout }}
+    </div>
+
+    <div class="write-layout-thumbnails">
+      <div class="write-layout-thumb" data-layout-value="main_thumbs">1 large + 3 small</div>
+      <div class="write-layout-thumb" data-layout-value="grid">Grid</div>
+      <div class="write-layout-thumb" data-layout-value="hero_text">Hero</div>
+    </div>
+
+    <div class="write-field-errors">{{ form.layout.errors }}</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="write-field">
+    <label>Full content / recipe</label>
+    {{ form.content }}
+    <div class="write-field-errors">{{ form.content.errors }}</div>
+  </div>
+
+  <!-- COVER IMAGE -->
+  <div class="write-field">
+    <label>Cover photo</label>
+
+    {{ form.image }}
+
+    <button type="button" class="upload-btn cover-upload-btn">
+      Upload Cover Image
+    </button>
+
+    <img id="coverPreview" class="extra-preview" />
+
+    <div class="write-field-errors">{{ form.image.errors }}</div>
+  </div>
+
+  <!-- EXTRA IMAGES -->
+  <div class="write-field">
+  <label>Recipe photos (max 4)</label>
+
+  {{ image_formset.management_form }}
+
+  <div class="write-multi-images">  <!-- ADD THIS -->
+    {% for img_form in image_formset.forms %}
+      <div class="write-multi-row">
+        {{ img_form.image }}
+        <button type="button" class="upload-btn">Upload Image</button>
+        {{ img_form.order.as_hidden }}
+        <img class="extra-preview" />
+      </div>
+    {% endfor %}
+  </div>
+</div>
+  <!-- ACTIONS -->
+  <div class="write-actions">
+    <button type="submit" class="blog-btn">Publish</button>
+    <a class="write-cancel" href="{% url 'blogs' %}">Cancel</a>
+  </div>
+</form>
+      </div>
+    </div>
+
+    <aside class="write-right">
+      <div class="write-preview-card">
+        <div class="write-preview-title">Live card preview</div>
+        <div class="blog-card-box blog-card-box-preview">
+            <div class="blog-card-media-preview" id="previewMedia">
+                <div id="previewContainer" class="preview-layout-main_thumbs">
+                    <img id="previewMainImg" class="preview-img-main" src="{% static 'myapp/images/default.jpg' %}" alt="Preview">
+                </div>
+            </div>
+            <div class="blog-content-box">
+              <h2 id="previewTitle">Your recipe title</h2>
+              <p id="previewDescription">Short description preview...</p>
+            </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    // =========================
+    // SELECT ELEMENTS
+    // =========================
+    const titleInput = document.querySelector('input[name="title"]');
+    const descInput = document.querySelector('textarea[name="description"]');
+    const layoutSelect = document.querySelector('select[name="layout"]');
+    const layoutThumbs = document.querySelectorAll('.write-layout-thumb');
+    const mainImageInput = document.querySelector('input[name="image"]');
+    const categorySelect = document.querySelector('select[name="category"]');
+    const categoryButtons = document.querySelectorAll(".write-cat-row");
+    const previewContainer = document.getElementById('previewContainer');
+
+
+    // =========================
+    // 1. LIVE TEXT PREVIEW
+    // =========================
+    titleInput.addEventListener('input', () => {
+        document.getElementById('previewTitle').innerText =
+            titleInput.value || "Your recipe title";
+    });
+
+    descInput.addEventListener('input', () => {
+        document.getElementById('previewDescription').innerText =
+            descInput.value || "Short description preview...";
+        document.getElementById('descCount').innerText =
+            descInput.value.length;
+    });
+
+
+    // =========================
+    // 2. CATEGORY SELECTION FIX
+    // =========================
+
+    // Click from custom category list
+    categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const catId = btn.dataset.catId;
+
+            categorySelect.value = catId;
+
+            // Trigger change event (important)
+            categorySelect.dispatchEvent(new Event('change'));
+
+            categoryButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    // Sync when dropdown changes
+    categorySelect.addEventListener('change', () => {
+        const selected = categorySelect.value;
+
+        categoryButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.catId === selected);
+        });
+    });
+
+
+    // =========================
+    // 3. LAYOUT PREVIEW SYSTEM
+    // =========================
+   function updateLayout(layout) {
+    previewContainer.innerHTML = "";
+
+    if (layout === "main_thumbs") {
+        previewContainer.className = "preview-layout-main_thumbs";
+        previewContainer.innerHTML = `
+            <img id="previewMainImg" class="preview-img-main" src="/static/myapp/images/default.jpg">
+            <div class="preview-row">
+                <img class="preview-thumb">
+                <img class="preview-thumb">
+                <img class="preview-thumb">
+            </div>
+        `;
+    }
+
+else if (layout === "grid") {
+    previewContainer.className = "preview-layout-grid";
+    previewContainer.innerHTML = `
+
+        <div class="preview-grid">
+            <img id="previewMainImg" class="preview-img-main" src="/static/myapp/images/default.jpg">
+            <img class="preview-item">
+            <img class="preview-item">
+            <img class="preview-item">
+        </div>
+    `;
+}
+
+    else if (layout === "hero_text") {
+        previewContainer.className = "preview-layout-hero";
+        previewContainer.innerHTML = `
+            <img id="previewMainImg" class="preview-img-main" src="/static/myapp/images/default.jpg">
+        `;
+    }
+
+    // Rebind previews
+    bindMainImagePreview();
+    bindExtraImagePreview();
+}
+
+
+    // Layout click
+    layoutThumbs.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+
+            layoutThumbs.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+
+            const layout = thumb.dataset.layoutValue;
+            layoutSelect.value = layout;
+
+            updateLayout(layout);
+        });
+    });
+
+
+    // =========================
+    // 4. MAIN IMAGE PREVIEW
+    // =========================
+    function bindMainImagePreview() {
+        const input = document.querySelector('input[name="image"]');
+
+        if (!input) return;
+
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const mainImg = document.getElementById('previewMainImg');
+                if (mainImg) {
+                    mainImg.src = e.target.result;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+
+    // =========================
+    // 5. MULTIPLE IMAGE PREVIEW
+    // =========================
+    function bindExtraImagePreview() {
+    const rows = document.querySelectorAll('.write-multi-row');
+
+    rows.forEach((row, index) => {
+        const input = row.querySelector('input[type="file"]');
+        const previewBox = row.querySelector('.extra-preview');
+
+        if (!input || !previewBox) return;
+
+        input.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                previewBox.src = e.target.result;
+                previewBox.style.display = "block";
+
+                // NORMAL LAYOUT (grid / thumbs)
+                const previewImgs = document.querySelectorAll('.preview-thumb');
+                if (previewImgs[index]) {
+                    previewImgs[index].src = e.target.result;
+                }
+
+                // ✅ STEP LAYOUT SUPPORT
+                const stepImgs = document.querySelectorAll('.preview-img-step');
+                if (stepImgs[index]) {
+                    stepImgs[index].src = e.target.result;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    });
+}
+
+    // =========================
+    // INITIAL LOAD SETUP
+    // =========================
+    const defaultLayout = layoutSelect.value || "main_thumbs";
+    updateLayout(defaultLayout);
+
+
+    document.querySelectorAll('.write-multi-row').forEach(row => {
+    const input = row.querySelector('input[type="file"]');
+    const button = row.querySelector('.upload-btn'); // ✅ FIXED
+
+    if (!input || !button) return;
+
+    button.addEventListener('click', () => {
+        input.click();
+    });
+});
+
+
+});
+
+let stepCount = 0;
+
+function addStep() {
+  stepCount++;
+
+  const html = `
+    <div style="margin-bottom:15px; padding:10px; border:1px solid #eee; border-radius:8px;">
+      <label><strong>Step ${stepCount}</strong></label><br><br>
+
+      <input type="file" name="step_image_${stepCount}"><br><br>
+
+      <textarea name="step_desc_${stepCount}" 
+        placeholder="Describe this step..." 
+        style="width:100%; padding:8px;"></textarea>
+    </div>
+  `;
+
+  document.getElementById("step-list").insertAdjacentHTML("beforeend", html);
+}
+
+
+// 🔥 SHOW STEP UI ONLY WHEN SELECTED
+document.querySelectorAll('.write-layout-thumb').forEach(el => {
+  el.addEventListener("click", function () {
+    const value = this.getAttribute("data-layout-value");
+    const stepBox = document.getElementById("steps-container");
+
+    if (value === "step_by_step") {
+      stepBox.style.display = "block";
+    } else {
+      stepBox.style.display = "none";
+    }
+  });
+});
+
+// COVER IMAGE BUTTON + PREVIEW
+const coverInput = document.querySelector('input[name="image"]');
+const coverBtn = document.querySelector('.cover-upload-btn');
+const coverPreview = document.getElementById('coverPreview');
+
+if (coverBtn && coverInput) {
+  coverBtn.addEventListener('click', () => {
+    coverInput.click();
+  });
+
+  coverInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      coverPreview.src = e.target.result;
+      coverPreview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+const contentField = document.querySelector('textarea[name="content"]');
+const toc = document.getElementById("tocPreview");
+
+if (contentField && toc) {
+  contentField.addEventListener("input", function () {
+    const lines = contentField.value.split("\n");
+
+    toc.innerHTML = "";
+
+    lines.forEach(line => {
+      if (line.startsWith("#")) {
+        const li = document.createElement("li");
+
+        let text = line.replace(/^#+/, "").trim();
+        li.innerText = text;
+
+        // indent based on #
+        const level = line.match(/^#+/)[0].length;
+        li.style.marginLeft = (level - 1) * 12 + "px";
+
+        toc.appendChild(li);
+      }
+    });
+  });
+}
+
+// =========================
+// ⏱ TIME AUTO SUGGESTIONS
+// =========================
+document.querySelectorAll(".time-suggestions span").forEach(btn => {
+  btn.addEventListener("click", function () {
+
+    const value = this.dataset.value;
+    const parent = this.closest("div");
+    const input = parent.querySelector("input");
+
+    if (input) {
+      input.value = value;
+    }
+
+    // highlight selected
+    parent.querySelectorAll("span").forEach(s => s.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,443 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Recipes{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'myapp/css/recipes.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+  
+  <!-- HERO -->
+  <section class="recipes-hero">
+    <div class="hero-slides">
+      <div class="hero-slide active"
+        style="background-image: url('{% static 'myapp/images/ChatGPT_Image5.png' %}');">
+      </div>
+    </div>
+
+    <div class="recipes-hero-inner">
+      <h1 class="recipes-hero-title">Explore Tasty Recipes</h1>
+      <p class="recipes-hero-subtitle">
+        From quick meals to gourmet delights, find the perfect recipe for every occasion.
+      </p>
+    </div>
+  </section>
+
+  <!-- MOST POPULAR -->
+  <section class="section section-trending" style="padding-top: 28px;">
+    <div class="section-header" style="justify-content: flex-start;">
+      <div>
+        <h2 style="font-size: 1.35rem;">Most Popular Recipe Collections</h2>
+      </div>
+    </div>
+
+    <div class="recipes-grid">
+      <!-- Card 1 -->
+      <article class="recipe-card">
+        <div class="recipe-media">
+          <a class="recipe-tile" href="#">
+        <div class="recipe-tile-media">
+          <img src="{% static 'myapp/images/photo-1687276287139-88f7333c8ca4.jpg' %}" alt="Sheet Pan Peruvian Chicken Thighs">
+          <div class="recipe-tile-title">Avocado Toast with Poached Egg</div>
+        </div>
+      </a>
+
+
+          <span class="badge badge-left">Recipe</span>
+
+          <span class="badge badge-right">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+              <path
+                d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z"
+              />
+            </svg>
+            4.5
+          </span>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+                <path
+                  d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"
+                />
+              </svg>
+              15 min
+            </span>
+            <span class="meta-item">Easy</span>
+          </div>
+
+          <h3 class="recipe-title">Avocado Toast with Poached Egg</h3>
+          <p class="recipe-desc">
+            The perfect brunch staple. Crispy sourdough, creamy avocado mash, and a perfectly runny
+            poached egg.
+          </p>
+
+          <div class="recipe-footer">
+            <div class="author">
+              <img
+                class="author-avatar"
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=128&q=60"
+                alt="Sara Jenkins"
+              />
+              <span class="author-name">Sara Jenkins</span>
+            </div>
+
+            <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                <path
+                  d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="recipe-card">
+        <div class="recipe-media">
+         <img src="{% static 'myapp/images/image1.jpg' %}" alt="Sheet Pan Peruvian Chicken Thighs">
+          <div class="recipe-tile-title">Avocado Toast with Poached Egg</div>
+          <span class="badge badge-left">Recipe</span>
+
+          <span class="badge badge-right">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+              <path
+                d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z"
+              />
+            </svg>
+            4.5
+          </span>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+                <path
+                  d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"
+                />
+              </svg>
+              30 min
+            </span>
+            <span class="meta-item">Medium</span>
+          </div>
+
+          <h3 class="recipe-title">Grilled Salmon with Asparagus</h3>
+          <p class="recipe-desc">
+            Healthy and flavourful grilled salmon served with crisp lemon-garlic asparagus.
+          </p>
+
+          <div class="recipe-footer">
+            <div class="author">
+              <img
+                class="author-avatar"
+                src="https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?auto=format&fit=crop&w=128&q=60"
+                alt="Chef Khan"
+              />
+              <span class="author-name">Chef Khan</span>
+            </div>
+
+            <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                <path
+                  d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="recipe-card">
+        <div class="recipe-media">
+          <img src="{% static 'myapp/images/photo-1673551490812-eaee2e9bf0ef.jpg' %}" alt="Sheet Pan Peruvian Chicken Thighs">
+          <div class="recipe-tile-title">Avocado Toast with Poached Egg</div>
+          <span class="badge badge-left">Recipe</span>
+
+          <span class="badge badge-right">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+              <path
+                d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z"
+              />
+            </svg>
+            4.5
+          </span>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+                <path
+                  d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"
+                />
+              </svg>
+              40 min
+            </span>
+            <span class="meta-item">Hard</span>
+          </div>
+
+          <h3 class="recipe-title">Decadent Chocolate Lava Cake</h3>
+          <p class="recipe-desc">
+            A rich chocolate cake with a molten center that flows out when you cut into it.
+          </p>
+
+          <div class="recipe-footer">
+            <div class="author">
+              <img
+                class="author-avatar"
+                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=128&q=60"
+                alt="Isabella Cristia"
+              />
+              <span class="author-name">Isabella Cristia</span>
+            </div>
+
+            <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                <path
+                  d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+ 
+ <!-- Card 4 -->
+         <article class="recipe-card">
+        <div class="recipe-media">
+          <img src="{% static 'myapp/images/inage18.jpg' %}" alt="Sheet Pan Peruvian Chicken Thighs">
+          <div class="recipe-tile-title">Fresh Mediterranean Salad</div>
+          <span class="badge badge-left">Recipe</span>
+
+          <span class="badge badge-right">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+              <path
+                d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z"
+              />
+            </svg>
+            4.5
+          </span>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+                <path
+                  d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"
+                />
+              </svg>
+              40 min
+            </span>
+            <span class="meta-item">Hard</span>
+          </div>
+
+          <h3 class="recipe-title">Decadent Chocolate Lava Cake</h3>
+          <p class="recipe-desc">
+            A rich chocolate cake with a molten center that flows out when you cut into it.
+          </p>
+
+          <div class="recipe-footer">
+            <div class="author">
+              <img
+                class="author-avatar"
+                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=128&q=60"
+                alt="Isabella Cristia"
+              />
+              <span class="author-name">Isabella Cristia</span>
+            </div>
+
+            <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                <path
+                  d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+       <!-- Card 5 -->
+            <article class="recipe-card">
+        <div class="recipe-media">
+          <img src="{% static 'myapp/images/Image17.jpg' %}" alt="Sheet Pan Peruvian Chicken Thighs">
+          <div class="recipe-tile-title">Cheesy Margherita Pizza</div>
+          <span class="badge badge-left">Recipe</span>
+
+          <span class="badge badge-right">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+              <path
+                d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z"
+              />
+            </svg>
+            4.5
+          </span>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+                <path
+                  d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"
+                />
+              </svg>
+              40 min
+            </span>
+            <span class="meta-item">Hard</span>
+          </div>
+
+          <h3 class="recipe-title">Decadent Chocolate Lava Cake</h3>
+          <p class="recipe-desc">
+            A rich chocolate cake with a molten center that flows out when you cut into it.
+          </p>
+
+          <div class="recipe-footer">
+            <div class="author">
+              <img
+                class="author-avatar"
+                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=128&q=60"
+                alt="Isabella Cristia"
+              />
+              <span class="author-name">Isabella Cristia</span>
+            </div>
+
+            <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                <path
+                  d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+
+    </div>
+  </section>
+  <!-- SECOND HERO -->
+<section class="recipes-hero"
+  style="background: url('{% static "myapp/images/Image12.png" %}') left center / cover no-repeat;">
+  
+  <div class="recipe-hero-content">
+    <h1>Get Started</h1>
+    <h2>10 Ingredients. Hundreds of Recipes</h2>
+    <p>Browse our simple guides and start cooking delicious meals today.</p>
+  </div>
+
+</section>
+
+
+{% load static %}
+
+<section class="ar-section">
+  <h2 class="ar-title">All Recipes</h2>
+
+  <div class="ar-grid">
+    
+    <div class="ar-card">
+      <img src="{% static 'myapp/images/Image11.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Sheet Pan Peruvian Chicken Thighs</p>
+      </div>
+    </div>
+
+    <div class="ar-card">
+      <img src="{% static 'myapp/images/Image10.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Beef with Mushrooms and Bamboo Shoots</p>
+      </div>
+    </div>
+
+    <div class="ar-card">
+      <img src="{% static 'myapp/images/Image9.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Spring Roll Dipping Sauce</p>
+      </div>
+    </div>
+
+    <div class="ar-card">
+      <img src="{% static 'myapp/images/Image8.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Chow Har Kew (Shrimp with Vegetables)</p>
+      </div>
+    </div>
+
+      <div class="ar-card">
+      <img src="{% static 'myapp/images/Image7.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Cauliflower Stir+ Fry with Beef</p>
+      </div>
+    </div>
+
+      <div class="ar-card">
+      <img src="{% static 'myapp/images/Image6.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Braised Pork Belly with Tofu Puffs</p>
+      </div>
+    </div>
+
+      <div class="ar-card">
+      <img src="{% static 'myapp/images/Image5.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Century Eggs with Green Peppers</p>
+      </div>
+    </div>
+
+      <div class="ar-card">
+      <img src="{% static 'myapp/images/Image4.webp' %}" alt="">
+      <div class="ar-overlay">
+        <p>Egg Roll Wrappers</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="newsletter" class="section newsletter-wrap">
+  <div class="newsletter-card">
+    <h2>Stay Updated with Fresh Recipes</h2>
+    <p>
+      Get delicious recipes, cooking tips, and trending food ideas delivered straight to your inbox.
+      No spam, just tasty inspiration!
+    </p>
+
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter Email Address" required />
+      <button type="submit" class="btn btn-light">Subscribe Now</button>
+    </form>
+
+    <small>We respect your privacy. Unsubscribe anytime.</small>
+  </div>
+</section>
+
+</main>
+
+
+{% endblock %}
+

@@ -1,0 +1,500 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image: url('{% static 'myapp/images/ChatGPT_Image3.png' %}');"></div>
+    <div class="hero-slide" style="background-image: url('{% static 'myapp/images/ChatGPT_Image5.png' %}');"></div>
+    <div class="hero-slide" style="background-image: url('{% static 'myapp/images/ChatGPT_Image7.png' %}');"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1>Discover Delicious Recipes Every Day</h1>
+    <p class="hero-subtitle">
+      Simple ingredients. Amazing flavours. Cook with <br>confidence and joy.
+    </p>
+
+    <div class="hero-actions">
+      <a href="{% url 'blogs' %}" class="btn btn-primary">Explore Blog</a>
+      <a href="{% url 'write' %}" class="btn btn-ghost">Write a Blog</a>
+    </div>
+
+    <div class="hero-slider-dots">
+      <button class="dot active" data-slide="0"></button>
+      <button class="dot" data-slide="1"></button>
+      <button class="dot" data-slide="2"></button>
+    </div>
+  </div>
+</section>
+
+    <!-- Trending Now -->
+    <section id="trending" class="section section-trending">
+      <div class="section-header">
+        <div>
+          <h2>Trending Now</h2>
+          <p>Most loved recipes by our community this week.</p>
+        </div>
+        <a href="#recipes" class="view-all">View all →</a>
+      </div>
+
+      <div class="card-grid">
+       <article class="recipe-card">
+          <div class="recipe-media">
+          <img src="{% static 'myapp/images/photo-1687276287139-88f7333c8ca4.jpg' %}" alt="Avocado Toast with Poached Egg" />
+             <span class="badge badge-left">Receipe</span>
+
+            <span class="badge badge-right">
+           <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+            <path d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z" />
+            </svg>  4.5
+           </span>
+           </div>
+
+               <div class="recipe-body">
+            <div class="recipe-meta">
+               <span class="meta-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+          <path d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/>
+            </svg>
+                15 min
+              </span>
+
+                   <span class="meta-item">Easy</span>
+              </div>
+
+            <h3 class="recipe-title">Avocado Toast with Poached Egg</h3>
+
+                <p class="recipe-desc">
+                             The perfect brunch staple. Crispy sourdough, creamy avocado mash, and a perfectly runny poached egg.
+                       </p>
+
+              <div class="recipe-footer">
+              <div class="author">
+                    <img class="author-avatar" src="{% static 'myapp/images/Girl-With-Cap-Profile-Picture-Full-HD.jpg' %}" alt="Sara Jenkins" />
+                  <span class="author-name">Sara Jenkins</span>
+                   </div>
+
+                 <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                 <path d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"/>
+              </svg>
+                 </button>
+               </div>
+              </div>
+          </article>
+<!--CARD 2 -->
+             <article class="recipe-card">
+          <div class="recipe-media">
+          <img src="{% static 'myapp/images/image1.jpg' %}" alt="Grilled Salmon with Asparagus" />
+             <span class="badge badge-left">Receipe</span>
+
+            <span class="badge badge-right">
+           <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+            <path d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z" />
+            </svg>  4.5
+           </span>
+           </div>
+
+               <div class="recipe-body">
+            <div class="recipe-meta">
+               <span class="meta-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+          <path d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/>
+            </svg>
+                30 min
+              </span>
+
+                   <span class="meta-item">Medium</span>
+              </div>
+
+            <h3 class="recipe-title">Grilled Salmon with Asparagus</h3>
+
+                <p class="recipe-desc">
+                           Healthy and flavourful grilled salmon served with <br> crisp lemon-garlic asparagus.
+                       </p>
+
+              <div class="recipe-footer">
+              <div class="author">
+                    <img class="author-avatar" src="{% static 'myapp/images/Girl-With-Cap-Profile-Picture-Full-HD.jpg' %}" alt="Chef khan" />
+                  <span class="author-name">Chef khan</span>
+                   </div>
+
+                 <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                 <path d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"/>
+              </svg>
+                 </button>
+               </div>
+              </div>
+          </article>
+
+
+                <article class="recipe-card">
+          <div class="recipe-media">
+          <img src="{% static 'myapp/images/photo-1673551490812-eaee2e9bf0ef.jpg' %}" alt="Decadent Chocolate Lava Cake" />
+             <span class="badge badge-left">Receipe</span>
+
+            <span class="badge badge-right">
+           <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+            <path d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z" />
+            </svg>  4.5
+           </span>
+           </div>
+
+               <div class="recipe-body">
+            <div class="recipe-meta">
+               <span class="meta-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+          <path d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/>
+            </svg>
+                40 min
+              </span>
+
+                   <span class="meta-item">Hard</span>
+              </div>
+
+            <h3 class="recipe-title">Decadent Chocolate Lava Cake</h3>
+
+                <p class="recipe-desc">
+                             A rich chocolate cake with a molten center that flows out when you cut into it.
+                       </p>
+
+              <div class="recipe-footer">
+              <div class="author">
+                    <img class="author-avatar" src="{% static 'myapp/images/Girl-With-Cap-Profile-Picture-Full-HD.jpg' %}" alt="Isbabella cristia" />
+                  <span class="author-name">Isbabella cristia</span>
+                   </div>
+
+                 <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                 <path d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"/>
+              </svg>
+                 </button>
+               </div>
+              </div>
+          </article>
+
+
+
+                <article class="recipe-card">
+          <div class="recipe-media">
+          <img src="{% static 'myapp/images/inage18.jpg' %}" alt="Fresh Mediterranean Salad" />
+             <span class="badge badge-left">Receipe</span>
+
+            <span class="badge badge-right">
+           <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+            <path d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z" />
+            </svg>  4.5
+           </span>
+           </div>
+
+               <div class="recipe-body">
+            <div class="recipe-meta">
+               <span class="meta-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+          <path d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/>
+            </svg>
+                15 min
+              </span>
+
+                   <span class="meta-item">Easy</span>
+              </div>
+
+            <h3 class="recipe-title">Fresh Mediterranean Salad</h3>
+
+                <p class="recipe-desc">
+                             Crisp vegetables, olives, and feta  tossed in a light lemon dressing.
+                       </p>
+
+              <div class="recipe-footer">
+              <div class="author">
+                    <img class="author-avatar" src="{% static 'myapp/images/Girl-With-Cap-Profile-Picture-Full-HD.jpg' %}" alt="Isabella cristia" />
+                  <span class="author-name">Isabella cristia</span>
+                   </div>
+
+                 <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                 <path d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"/>
+              </svg>
+                 </button>
+               </div>
+              </div>
+          </article>
+
+
+                <article class="recipe-card">
+          <div class="recipe-media">
+          <img src="{% static 'myapp/images/Image17.jpg' %}" alt="Cheesy Margherita Pizza" />
+             <span class="badge badge-left">Receipe</span>
+
+            <span class="badge badge-right">
+           <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-star">
+            <path d="M12 17.3l-5.5 3 1.2-6.2L3 9.6l6.3-.8L12 3l2.7 5.8 6.3.8-4.7 4.5 1.2 6.2z" />
+            </svg>  4.5
+           </span>
+           </div>
+
+               <div class="recipe-body">
+            <div class="recipe-meta">
+               <span class="meta-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-muted">
+          <path d="M12 8a1 1 0 0 1 1 1v3.6l2.4 1.4a1 1 0 1 1-1 1.7l-2.9-1.7A1 1 0 0 1 11 14V9a1 1 0 0 1 1-1z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/>
+            </svg>
+                35 min
+              </span>
+
+                   <span class="meta-item">Medium</span>
+              </div>
+
+            <h3 class="recipe-title">Cheesy Margherita Pizza</h3>
+
+                <p class="recipe-desc">
+                             A classic Italian pizza topped with fresh mozzarella,basil leaves , and rich tomato sauce on a crispy crust.
+                       </p>
+
+              <div class="recipe-footer">
+              <div class="author">
+                    <img class="author-avatar" src="{% static 'myapp/images/Girl-With-Cap-Profile-Picture-Full-HD.jpg' %}" alt="Sara Jenkins" />
+                  <span class="author-name">Sara Jenkins</span>
+                   </div>
+
+                 <button class="heart-btn" type="button" aria-label="Save">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-heart">
+                 <path d="M12.1 21.3a1 1 0 0 1-.6-.2C7 17.8 4 15 4 11.6 4 9.1 5.7 7 8.1 6.4c1.4-.3 2.9.1 4 1.2 1.1-1.1 2.6-1.5 4-1.2C18.5 7 20 9 20 11.6c0 3.4-3 6.2-7.5 9.5a1 1 0 0 1-.4.2z"/>
+              </svg>
+                 </button>
+               </div>
+              </div>
+          </article>
+      </div>
+    </section>
+
+
+
+    <!-- Blogs -->
+
+<section id="latest-blogs" class="section">
+  <div class="section-header">
+    <div>
+      <h2>Latest Blogs</h2>
+    </div>
+  </div>
+
+  <div class="blog-grid">
+    <!-- Card 1 -->
+    <article class="blog-card">
+      <div class="blog-media">
+        <img src="{% static 'myapp/images/Image3.png' %}" alt="Creamy Garlic Butter Pasta" />
+        <span class="blog-badge">Quick Meals</span>
+      </div>
+      <div class="blog-body">
+        <h3>Creamy Garlic Butter Pasta</h3>
+        <p>
+          A rich and comforting pasta recipe made with fresh garlic, butter, and
+          parmesan — ready in just 20 minutes.
+        </p>
+        <a href="#" class="read-more">Read More <span>→</span></a>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="blog-card">
+      <div class="blog-media">
+        <img src="{% static 'myapp/images/Image45.jpg' %}" alt="Classic Chocolate Lava Cake" />
+        <span class="blog-badge">Desserts</span>
+      </div>
+      <div class="blog-body">
+        <h3>Classic Chocolate Lava Cake</h3>
+        <p>
+          Warm, gooey chocolate cake with a molten center that melts in your mouth.
+          Perfect for special evenings.
+        </p>
+        <a href="#" class="read-more">Read More <span>→</span></a>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="blog-card">
+      <div class="blog-media">
+        <img src="{% static 'myapp/images/Image20.webp' %}" alt="Spicy Street-Style Chicken" />
+        <span class="blog-badge">Non-veg</span>
+      </div>
+      <div class="blog-body">
+        <h3>Spicy Street-Style Chicken</h3>
+        <p>
+          Smoky, spicy, and packed with flavor—this quick chicken recipe is perfect
+          for weeknights.
+        </p>
+        <a href="#" class="read-more">Read More <span>→</span></a>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="blog-card">
+      <div class="blog-media">
+        <img src="{% static 'myapp/images/quinoa-avocado-bowl-fb.webp' %}" alt="Healthy Bowl with Greens" />
+        <span class="blog-badge">Healthy</span>
+      </div>
+      <div class="blog-body">
+        <h3>Healthy Bowl with Greens</h3>
+        <p>
+          A nourishing bowl loaded with greens, protein, and a light dressing—simple,
+          fresh, and satisfying.
+        </p>
+        <a href="#" class="read-more">Read More <span>→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Categories -->
+
+  <section id="categories" class="section">
+  <h2>Popular Categories</h2>
+
+  <div class="categories">
+    <a class="cat" href="#">
+      <img src="{% static 'myapp/images/dessert1.jpg' %}" alt="Desserts" />
+      <span class="cat-label">Desserts</span>
+    </a>
+
+    <a class="cat" href="#">
+      <img src="{% static 'myapp/images/562120-untitled-design-10.webp' %}" alt="Quick Meals" />
+      <span class="cat-label">Quick Meals</span>
+    </a>
+
+    <a class="cat active" href="#">
+      <img src="{% static 'myapp/images/traditional-indian-thali-meal-displaying-rice-curry-chickpeas-and-naan-bread-photo.jpg' %}" alt="Vegetarian" />
+      <span class="cat-label">Vegetarian</span>
+    </a>
+
+    <a class="cat" href="#">
+      <img src="{% static 'myapp/images/indian-feast-platter-thali-meal-with-rice-naan-photo.jpg' %}" alt="Non-Veg" />
+      <span class="cat-label">Non-Veg</span>
+    </a>
+
+    <a class="cat" href="#">
+      <img src="{% static 'myapp/images/Mango-Smoothie-1.jpg' %}" alt="Drinks" />
+      <span class="cat-label">Drinks</span>
+    </a>
+  </div>
+</section>
+
+<!-- Why Join -->
+
+<section id="why-join" class="section why-join">
+  <h2 class="why-title">Why Join ?</h2>
+
+  <div class="why-wrap">
+    <!-- Left: 2x2 image grid with icons -->
+    <div class="why-left">
+  <div class="why-collage">
+    <img class="why-collage-img" src="{% static 'myapp/images/Image2.png' %}" alt="Why Join" />
+
+    <div class="why-icon why-icon-1">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21s-7-4.6-7-10a4 4 0 0 1 7-2.3A4 4 0 0 1 19 11c0 5.4-7 10-7 10z"/>
+      </svg>
+    </div>
+
+    <div class="why-icon why-icon-2">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3h12a2 2 0 0 1 2 2v16l-8-4-8 4V5a2 2 0 0 1 2-2z"/>
+      </svg>
+    </div>
+
+    <div class="why-icon why-icon-3">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 4h16v12H7l-3 3V4zm4 4h8v2H8V8zm0 4h6v2H8v-2z"/>
+      </svg>
+    </div>
+
+    <div class="why-icon why-icon-4">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16 11c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3zM8 11c1.7 0 3-1.3 3-3S9.7 5 8 5 5 6.3 5 8s1.3 3 3 3zm0 2c-2.7 0-5 1.3-5 3v2h10v-2c0-1.7-2.3-3-5-3zm8 0c-.3 0-.6 0-.9.1 1.2.9 1.9 2 1.9 2.9v2h6v-2c0-1.7-2.3-3-5-3z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+    <!-- Right: text + 4 points + button -->
+    <div class="why-right">
+      <p class="why-lead">
+        Discover, cook, and share delicious recipes with thousands of food lovers
+        around the world.
+      </p>
+
+      <div class="why-points">
+        <div class="why-point">
+          <div class="num">1</div>
+          <div>
+            <h3>Discover New Recipes</h3>
+            <p>Explore trending, seasonal, and chef-inspired dishes added daily.</p>
+          </div>
+        </div>
+
+        <div class="why-point">
+          <div class="num">2</div>
+          <div>
+            <h3>Save Your Favorites</h3>
+            <p>Bookmark recipes and create your own personalized collection.</p>
+          </div>
+        </div>
+
+        <div class="why-point">
+          <div class="num">3</div>
+          <div>
+            <h3>Step-by-Step Guidance</h3>
+            <p>Follow clear instructions with cooking tips to get perfect results every time.</p>
+          </div>
+        </div>
+
+        <div class="why-point">
+          <div class="num">4</div>
+          <div>
+            <h3>Join a Food Lovers Community</h3>
+            <p>Connect, comment, and share your cooking experiences with others.</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="#recipes" class="btn btn-primary why-btn">Start Cooking Today</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Highlight section -->
+
+<section id="newsletter" class="section newsletter-wrap">
+  <div class="newsletter-card">
+    <h2>Stay Updated with Fresh Recipes</h2>
+    <p>
+      Get delicious recipes, cooking tips, and trending food ideas delivered straight to your inbox.
+      No spam, just tasty inspiration!
+    </p>
+
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter Email Address" required />
+      <button type="submit" class="btn btn-light">Subscribe Now</button>
+    </form>
+
+    <small>We respect your privacy. Unsubscribe anytime.</small>
+  </div>
+</section>
+</main>
+
+
+{% endblock %}

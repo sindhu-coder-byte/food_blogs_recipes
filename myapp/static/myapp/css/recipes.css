@@ -1,0 +1,383 @@
+:root{
+  --recipes-card-radius: 16px;
+  --recipes-card-shadow: 0 14px 35px rgba(0,0,0,.10);
+}
+
+/* HERO */
+.recipes-hero{
+  position: relative;
+  min-height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;   
+
+  text-align: center;    
+  padding: 48px 7vw;
+  overflow: hidden;
+}
+
+.recipes-hero::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* CONTENT CARD (glass effect) */
+.recipes-hero-inner{
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+
+  animation: fadeUp .6s ease;
+}
+
+/* TITLE */
+.recipes-hero-title{
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+/* SUBTITLE */
+.recipes-hero-subtitle{
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 768px){
+  .recipes-hero{
+    padding: 32px 5vw;
+    min-height: 260px;
+  }
+
+  .recipes-hero-inner{
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px){
+  .recipes-hero{
+    padding: 24px 4vw;
+    min-height: 230px;
+  }
+
+  .recipes-hero-title{
+    font-size: 1.4rem;
+  }
+}
+
+/* ✅ Responsive layout */
+@media (max-width: 768px){
+  .recipes-highlight-card{
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* Grid */
+.recipes-section{
+  padding-top: 22px;
+}
+
+/* Default: 4 columns */
+.recipes-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+/* ✅ Laptop */
+@media (max-width: 1100px){
+  .recipes-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ✅ Tablet */
+@media (max-width: 860px){
+  .recipes-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ✅ Mobile */
+@media (max-width: 520px){
+  .recipes-grid{ grid-template-columns: 1fr; }
+}
+
+/* Cards */
+.recipe-tile{
+  display: block;
+  border-radius: var(--recipes-card-radius);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+@media (hover: none){
+  .recipe-tile:hover{
+    transform: none;
+    box-shadow: var(--recipes-card-shadow);
+  }
+}
+
+.recipe-tile-media{
+  height: 170px;
+}
+
+/* ✅ Adjust image height for small screens */
+@media (max-width: 520px){
+  .recipe-tile-media{
+    height: 200px;
+  }
+}
+
+.recipe-tile-title{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px 12px;
+  font-size: .85rem;
+}
+
+.recipes-actions{
+  display: flex;
+  justify-content: center;
+  padding: 22px 0 10px;
+}
+
+@media (max-width: 480px){
+  .recipes-actions{
+    padding: 18px 0;
+  }
+}
+
+
+/* RECIPE HERO CUSTOM */
+.recipe-hero {
+  position: relative;
+  height: 320px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+
+  padding: 0 7vw;
+}
+
+.recipe-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+}
+/* CONTENT ALIGN RIGHT */
+.recipe-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
+  text-align: left;
+  color: #111;
+  margin-left: 580px; /* adjust this value */
+}
+
+/* HEADINGS */
+.recipe-hero-content h1 {
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.recipe-hero-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.recipe-hero-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.recipe-tile-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.recipe-hero-content .btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 22px;
+
+  background: #ff5a5f;
+  color: #fff;
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .recipe-hero-content {
+    margin-left: 20px;
+  }
+}
+
+.ar-section {
+  padding: 40px 6vw;
+  background: #f3f3f3;
+}
+
+.ar-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #222;
+}
+
+.ar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ar-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.ar-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: 0.4s;
+}
+
+/* overlay */
+.ar-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 0 0 16px 16px;
+}
+
+.ar-overlay p {
+  margin: 0;
+  font-size: 14px;
+  color: #111;
+}
+
+/* hover */
+.ar-card:hover img {
+  transform: scale(1.05);
+}
+
+/* responsive */
+@media (max-width: 992px) {
+  .ar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .ar-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* Newsletter highlight card */
+.newsletter-wrap{
+  padding: 34px 7vw 56px;
+}
+
+.newsletter-card{
+  max-width: 980px;
+  margin: 0 auto;
+  background: #fe4a51;
+  border-radius: 18px;
+  padding: 34px 22px;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(254,74,81,.35);
+}
+
+.newsletter-card h2{
+  margin: 0 0 8px;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.newsletter-card p{
+  margin: 0 auto 18px;
+  max-width: 760px;
+  font-size: .95rem;
+  opacity: .95;
+}
+
+.newsletter-form{
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 14px 0 10px;
+}
+
+.newsletter-form input{
+  width: min(420px, 92vw);
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  padding: 0 16px;
+  font-family: "Lato", sans-serif;
+}
+
+.btn-light{
+  background: #ffffff;
+  color: #fe4a51;
+  border: none;
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+
+.newsletter-card small{
+  display:block;
+  margin-top: 6px;
+  font-size: .82rem;
+  opacity: .92;
+}
+
+
+
+
+

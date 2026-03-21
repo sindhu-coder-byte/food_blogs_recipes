@@ -1,0 +1,450 @@
+
+body {
+  margin: 0;
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: var(--text-main);
+}
+.rb-hero{
+  position: relative;
+  min-height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;   
+
+  text-align: center;    
+  padding: 48px 7vw;
+  overflow: hidden;
+}
+
+/* OVERLAY */
+.rb-hero::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.rb-hero-content{
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  animation: fadeUp .6s ease;
+}
+/* TEXT */
+.rb-hero-content h1{
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.rb-hero-content p{
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.write-wrap {
+  padding: 32px 60px 48px;
+}
+
+.write-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ===============================
+   CARD SYSTEM (CONSISTENT)
+=============================== */
+.write-card,
+.write-preview-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+/* remove dashed border (was breaking UI) */
+.write-preview-card {
+  border-style: solid;
+}
+
+/* ===============================
+   HEADER
+=============================== */
+.write-card-head h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.write-card-head p {
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   FORM STRUCTURE
+=============================== */
+.write-field {
+  margin-bottom: 16px;
+}
+
+.write-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.write-field label {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* INPUTS */
+.write-form input,
+.write-form textarea,
+.write-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #E5E7EB;
+  outline: none;
+  transition: 0.2s;
+}
+
+.write-form input:focus,
+.write-form textarea:focus,
+.write-form select:focus {
+  border-color: #FE4A51;
+}
+
+/* ===============================
+   BUTTONS
+=============================== */
+.blog-btn {
+  background: #FE4A51;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.blog-btn:hover {
+  opacity: 0.9;
+}
+
+.write-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.write-actions .write-cancel {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none !important;
+
+  /* background: #e5e7eb !important; */
+  color: #FE4A51 !important;
+  border: 1px solid #FE4A51;
+
+  font-weight: 500;
+}
+
+.write-cancel:hover {
+  background: #d1d5db;
+  color: #000;
+}
+
+/* ===============================
+   LAYOUT THUMBNAILS
+=============================== */
+.write-layout-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.write-layout-thumb {
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px;
+  background: #F9FAFB;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.write-layout-thumb.active {
+  border-color: #FE4A51;
+  background: #FFF7F7;
+}
+
+/* GRID CONTAINER */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+  gap: 8px;
+
+  width: 100%;
+  max-width: 300px;  /* adjust if needed */
+  margin: auto;
+}
+
+/* EACH IMAGE */
+.preview-item {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ===============================
+   STEP SECTION
+=============================== */
+#steps-container {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px dashed #FE4A51;
+  border-radius: 10px;
+}
+
+.step-input-box {
+  border: 1px solid #E5E7EB;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.step-input-box textarea {
+  margin-top: 8px;
+}
+
+/* ===============================
+   IMAGE UPLOAD GRID
+=============================== */
+/* GRID */
+.write-multi-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+/* EACH BOX */
+.write-multi-row {
+  border: 2px dashed #f8a5a8;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  background: #fff7f7;
+
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* hover effect */
+.write-multi-row:hover {
+  border-color: #FE4A51;
+  background: #fff0f1;
+  transform: translateY(-2px);
+}
+
+/* hide default input */
+.write-field input[type="file"] {
+  display: none;
+}
+
+/* UPLOAD BUTTON */
+.upload-btn {
+  margin-top: 10px;
+  background: #FE4A51;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+  background: #d93b42;
+  transform: scale(1.05);
+}
+
+/* PREVIEW IMAGE */
+.extra-preview {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 12px;
+
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* SHOW WHEN IMAGE UPLOADED */
+.extra-preview.active {
+  display: block;
+}
+
+/* COVER IMAGE SPECIAL STYLE */
+#coverPreview {
+  height: 180px;
+  border: 2px solid #f1f1f1;
+}
+
+/* LABEL */
+.write-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+}
+/* ===============================
+   PREVIEW PANEL
+=============================== */
+.write-right {
+  position: sticky;
+  top: 90px;
+}
+
+.write-preview-title {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.blog-card-box-preview {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.blog-card-media-preview {
+  width: 140px;
+}
+
+.blog-card-media-preview img {
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.blog-content-box h2 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.blog-content-box p {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+/* ===============================
+   CHARACTER COUNTER
+=============================== */
+.write-char-counter {
+  text-align: right;
+  font-size: 11px;
+  color: #6B7280;
+  margin-top: 4px;
+}
+
+
+/* TIME SECTION */
+.time-suggestions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.time-suggestions span {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: #F3F4F6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.time-suggestions span:hover {
+  background: #FE4A51;
+  color: #fff;
+}
+
+.write-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* ===============================
+   RESPONSIVE FIXES
+=============================== */
+@media (max-width: 900px) {
+
+  .write-wrap {
+    padding: 24px 20px;
+  }
+
+  .write-container {
+    grid-template-columns: 1fr;
+  }
+
+  .write-right {
+    position: static;
+  }
+
+  .write-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .write-layout-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .write-multi-images {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-card-box-preview {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .write-layout-thumbnails {
+    grid-template-columns: 1fr;
+  }
+}

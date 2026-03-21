@@ -1,0 +1,287 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'myapp/css/blog-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="blog-hero-banner hero-sm">
+  <div class="blog-hero-overlay">
+    <h1 class="blog-title">{{ blog.title }}</h1>
+    <p class="blog-meta">
+      {{ blog.created_at|date:"M d, Y" }} • By {{ blog.author.username }}
+      {% if blog.category %} • {{ blog.category.name }}{% endif %}
+    </p>
+  </div>
+</section>
+
+<main class="section">
+<div class="blog-flex">
+
+<!-- ================= MAIN CONTENT ================= -->
+<div>
+
+  <div class="blog-container">
+    <div class="card blog-main-card no-padding">
+{% with main_image=blog.image extra_list=blog.extra_images.all %}
+
+<!-- ✅ 1 LARGE + 3 SMALL (NEW - SAFE ADD) -->
+{% if blog.layout == 'main_thumbs' %}
+  <div class="bt-layout">
+
+    <!-- LEFT BIG -->
+    {% if main_image %}
+      <div class="bt-big">
+        <img src="{{ main_image.url }}" alt="Main Image">
+      </div>
+    {% endif %}
+
+    <!-- RIGHT SMALL -->
+    <div class="bt-small">
+      {% for img in extra_list|slice:":3" %}
+        <div class="bt-thumb">
+          <img src="{{ img.image.url }}" alt="Extra Image">
+        </div>
+      {% empty %}
+        <div class="bt-empty"></div>
+        <div class="bt-empty"></div>
+        <div class="bt-empty"></div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+{% elif blog.layout == 'grid' %}
+  <div class="blog-grid">
+    {% if main_image %}
+      <img src="{{ main_image.url }}">
+    {% endif %}
+    {% for img in extra_list|slice:":3" %}
+      <img src="{{ img.image.url }}">
+    {% endfor %}
+  </div>
+
+<!-- ✅ HERO TEXT -->
+{% elif blog.layout == 'hero_text' and main_image %}
+  <img src="{{ main_image.url }}" class="blog-image">
+
+<!-- ✅ STEP BY STEP -->
+{% elif blog.layout == 'step_by_step' %}
+  <div class="steps-modern">
+    {% for step in blog.steps.all|dictsort:"order" %}
+    <div class="step-card">
+
+      <div class="step-number">
+        {{ forloop.counter }}
+      </div>
+
+      {% if step.image %}
+      <img src="{{ step.image.url }}" class="step-img">
+      {% endif %}
+
+      <div class="step-content">
+        <p>{{ step.description }}</p>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+<!-- ✅ DEFAULT FALLBACK -->
+{% elif main_image %}
+  <img src="{{ main_image.url }}" class="blog-image">
+
+{% else %}
+  <img src="{% static 'myapp/images/default.jpg' %}" class="blog-image">
+{% endif %}
+
+{% endwith %}
+
+      <!-- CONTENT -->
+      <div class="blog-content-wrapper" id="articleContent">
+
+        {% if blog.description %}
+          <p class="blog-description">{{ blog.description }}</p>
+        {% endif %}
+
+        <!-- INGREDIENTS -->
+        <div class="card ingredients-card">
+          <h3> Ingredients</h3>
+         <ul class="ingredients-list">
+  {% for item in ingredients_list %}
+    <li>
+      <span>{{ item }}</span>
+    </li>
+  {% endfor %}
+</ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="blog-content">
+          <div id="articleContent">
+             {{ blog.content|linebreaks }}
+          </div>
+        </div>
+
+        <div class="blog-actions">
+          <a href="{% url 'blogs' %}">
+            <button class="blog-btn">← Back to Blogs</button>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMENTS -->
+  <div class="card comments-card">
+    <h3>💬 Comments</h3>
+
+    {% if user.is_authenticated %}
+    <form method="POST">
+      {% csrf_token %}
+      <textarea name="comment"></textarea>
+      <button class="blog-btn">Post</button>
+    </form>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="comment-box">
+      <strong>{{ comment.user.username }}</strong>
+      <p>{{ comment.comment }}</p>
+
+      <button onclick="toggleReply({{ comment.id }})">Reply</button>
+
+      <form method="POST" id="reply-{{ comment.id }}" class="reply-form">
+        {% csrf_token %}
+        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        <textarea name="comment"></textarea>
+        <button class="blog-btn">Reply</button>
+      </form>
+
+      <div class="reply-box">
+        {% for reply in comment.replies.all %}
+          <p><strong>{{ reply.user.username }}</strong> {{ reply.comment }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar">
+
+<!-- RECIPE DETAILS -->
+<div class="card">
+  <h4>Recipe Details</h4>
+  {% if blog.prep_time %}<p>⏱ Prep: {{ blog.prep_time }}</p>{% endif %}
+  {% if blog.cook_time %}<p>🔥Cook: {{ blog.cook_time }}</p>{% endif %}
+  {% if blog.servings %}<p>🍽 Serves: {{ blog.servings }}</p>{% endif %}
+</div>
+
+
+
+<!-- TRENDING -->
+<div class="card">
+  <h4>Trending</h4>
+  {% for b in trending_blogs %}
+    <a href="{% url 'blog_detail' b.id %}" class="sidebar-post">
+      {% if b.image %}
+        <img src="{{ b.image.url }}">
+      {% else %}
+        <img src="{% static 'myapp/images/default.jpg' %}">
+      {% endif %}
+      <div>
+        <small>{{ b.created_at|date:"M d" }}</small>
+        <p>{{ b.title|truncatechars:40 }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+<!-- RELATED -->
+<div class="card">
+  <h4>Related Blogs</h4>
+  {% for b in related_blogs %}
+    <a href="{% url 'blog_detail' b.id %}" class="sidebar-post">
+      {% if b.image %}
+        <img src="{{ b.image.url }}">
+      {% else %}
+        <img src="{% static 'myapp/images/default.jpg' %}">
+      {% endif %}
+      <div>
+        <small>{{ b.category.name }}</small>
+        <p>{{ b.title|truncatechars:40 }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+</div>
+</div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const content = document.getElementById("articleContent");
+  const toc = document.getElementById("tocList");
+
+  if (!content || !toc) return;
+
+  // =========================
+  // ✅ STEP 1: Convert # → HTML headings
+  // =========================
+  let raw = content.innerHTML;
+
+  raw = raw.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  raw = raw.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  raw = raw.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+  content.innerHTML = raw;
+
+  // =========================
+  // ✅ STEP 2: Generate TOC
+  // =========================
+  toc.innerHTML = "";
+
+  const headings = content.querySelectorAll("h1, h2, h3");
+
+  headings.forEach((heading, index) => {
+    const id = "heading-" + index;
+    heading.id = id;
+
+    const a = document.createElement("a");
+    a.href = "#" + id;
+    a.innerText = heading.innerText;
+
+    // indentation
+    if (heading.tagName === "H2") a.style.marginLeft = "10px";
+    if (heading.tagName === "H3") a.style.marginLeft = "20px";
+
+    toc.appendChild(a);
+  });
+
+});
+
+// =========================
+// ✅ REPLY TOGGLE (SAFE)
+// =========================
+function toggleReply(id){
+  const el = document.getElementById("reply-" + id);
+  if (!el) return;
+
+  el.style.display = (el.style.display === "none" || el.style.display === "") 
+    ? "block" 
+    : "none";
+}
+</script>
+
+{% endblock %}
