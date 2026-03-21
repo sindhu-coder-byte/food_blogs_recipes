@@ -6,7 +6,7 @@
 /* HERO */
 .recipes-hero{
   position: relative;
-  min-height: 260px;
+  min-height: 480px;
 
   display: flex;
   align-items: center;
