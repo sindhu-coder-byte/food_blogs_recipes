@@ -127,18 +127,16 @@ class WriteView(LoginRequiredMixin, CreateView):
            img = self.request.FILES.get(f"step_image_{i}")
            desc = self.request.POST.get(f"step_desc_{i}")
 
-        # ✅ STOP only when BOTH are empty
            if not img and not desc:
             break
 
-        # ✅ Save only if description exists
-        if desc:
-            BlogStep.objects.create(
-                blog=self.object,
-                image=img,   # can be None
-                description=desc,
-                order=i
-            )
+           if desc:
+               BlogStep.objects.create(
+                 blog=self.object,
+                 image=img,   # can be None
+                 description=desc,
+                 order=i
+             )
 
         i += 1
         # =========================
