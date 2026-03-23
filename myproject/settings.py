@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ALLOWED_HOSTS = [
     "food-blogs-recipes-2.onrender.com",
     "127.0.0.1",
@@ -32,6 +34,9 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('API_KEY'),
     'API_SECRET': os.environ.get('API_SECRET'),
 }
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Application definition
 
@@ -46,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
 ]
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 MIDDLEWARE = [
@@ -148,16 +152,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 
-TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'myapp', 'static')
+]
 
 
-STATICFILES_DIRS = []
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Dev email backend for password reset (prints email to terminal)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Default primary key field type
@@ -165,5 +174,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://food-blogs-recipes-2.onrender.com"
+]
