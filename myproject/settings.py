@@ -35,8 +35,6 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 # Application definition
 
@@ -46,9 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
-    'django.contrib.staticfiles',
     'myapp',
 ]
 
@@ -64,10 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -154,20 +148,14 @@ USE_TZ = True
 
 TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'myapp', 'static')
-]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-# Dev email backend for password reset (prints email to terminal)
+# TEMP (for debug)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'# Dev email backend for password reset (prints email to terminal)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
