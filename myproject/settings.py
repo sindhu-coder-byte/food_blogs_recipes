@@ -18,23 +18,36 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = [
-    "food-blogs-recipes-2.onrender.com",
-    "127.0.0.1",
-    "localhost"
+ALLOWED_HOSTS = ["*"]
+USE_X_FORWARDED_HOST = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://food-blogs-posts.onrender.com",
+    "https://*.onrender.com"
 ]
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-    'API_KEY': os.environ.get('API_KEY'),
-    'API_SECRET': os.environ.get('API_SECRET'),
+
+# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+
+# if ALLOWED_HOSTS:
+#     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS.split(",")]
+# else:
+#     ALLOWED_HOSTS = ["*"]   # fallback (very important)
+    
+
+
+CLOUDINARY_STORAGE = { 
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', ''),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', ''),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', ''),
 }
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Application definition
 
@@ -99,7 +112,7 @@ if DEBUG:
 else:
     DATABASES = {
         'default': dj_database_url.config(
-            default=os.environ.get("DATABASE_URL"),
+            default=os.getenv("DATABASE_URL"),
             conn_max_age=600,
             ssl_require=True
         )
@@ -151,11 +164,13 @@ TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-
-
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # TEMP (for debug)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'# Dev email backend for password reset (prints email to terminal)
+
+
+
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -165,6 +180,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://food-blogs-recipes-2.onrender.com"
-]
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+
+print(" SETTINGS LOADED FROM THIS FILE")
+print(" ALLOWED_HOSTS =", ALLOWED_HOSTS)
+
