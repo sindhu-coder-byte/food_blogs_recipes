@@ -14,5 +14,3 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "author", "created_at")
     list_filter = ("category", "created_at")
     search_fields = ("title", "description", "content")
-
-# Register your models here.

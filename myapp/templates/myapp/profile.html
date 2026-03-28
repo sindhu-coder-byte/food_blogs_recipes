@@ -1,0 +1,709 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #EFEFEF;
+    margin: 0;
+    padding: 0;
+}
+
+/* 🔥 HERO SECTION */
+.pf-hero {
+    height: 220px;
+    background: url("{% static 'myapp/images/ChatGPT_Image3.png' %}") no-repeat center/cover;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px 40px;
+    color: #fff;
+}
+
+/* MAIN WRAP */
+.pf-wrapper {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+/* LEFT CARD */
+.pf-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+/* 🔥 AVATAR WRAP */
+.pf-avatar-wrap{
+    position: relative;
+    width: 140px;
+    margin: 20px auto;
+}
+
+/* AVATAR IMAGE */
+.pf-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #FFD0D2;
+}
+
+/* Camera Button */
+.pf-camera {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    {% comment %} background: #FE4A51; {% endcomment %}
+    color:#ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(235, 231, 231, 0.2);
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+/* Hover Effect */
+.pf-camera:hover {
+    background: #FE4A51;
+    transform: scale(1.1);
+}
+
+
+
+.pf-btn {
+    display: block;
+    margin: 15px auto;
+    background:  #FE4A51;
+    color: #fff;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* 🔥 CAMERA BUTTON */
+.pf-avatar-btn{
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+
+    background: #ffffff;
+    border: 2px solid #FFD0D2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 8px rgba(202, 191, 191, 0.2);
+    transition: 0.25s ease;
+}
+
+/* ICON */
+.pf-avatar-btn i{
+    color: #6B7280;
+    font-size: 18px;
+}
+
+/* HOVER */
+.pf-avatar-btn:hover{
+    background: #FE4A51;
+}
+
+.pf-avatar-btn:hover i{
+    color: #fff;
+}
+
+/* USER INFO */
+.pf-username {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+.pf-bio {
+    font-size: 14px;
+    color: #6B7280;
+    margin: 10px 0;
+}
+
+/* TEXTAREA */
+.pf-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #C3C4C4;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+/* BUTTON */
+.pf-btn {
+    margin-top: 12px;
+    background: #FE4A51
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* STATS */
+.pf-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.pf-stat h3 {
+    color: #FE4A51;
+}
+
+.pf-stat p {
+    font-size: 12px;
+    color: #6B7280;
+}
+
+/* ACTIVITY */
+.pf-activity {
+    margin-top: 20px;
+    border-top: 1px solid #EFEFEF;
+    padding-top: 15px;
+}
+
+.pf-act-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+/* LOGOUT */
+.pf-logout {
+    display: block;
+    margin-top: 15px;
+    background:  #FE4A51;
+    color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* CONTENT AREA */
+.pf-content {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* TABS */
+.pf-tabs {
+  display: flex;
+  gap: 100px;
+  margin-bottom: 20px;
+}
+
+.pf-tab {
+  font-size: 16px;
+  color: #6B7280;
+  cursor: pointer;
+  padding-bottom: 5px;
+  position: relative;
+}
+
+.pf-tab.active {
+  color: #FE4A51;
+  font-weight: 600;
+}
+
+.pf-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #FE4A51;
+}
+
+/* BLOG GRID */
+/* GRID */
+.pf-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* BLOG CARD */
+.pf-blog-card {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  height:280px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+
+.pf-blog-card:hover {
+  transform: translateY(-5px);
+}
+
+
+/* IMAGE */
+.pf-blog-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* CONTENT */
+/* OVERLAY */
+.pf-blog-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+
+  border-radius: 0 0 16px 16px;
+  min-height: 50px;
+}
+.pf-blog-title {
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+  font-size: 14px;
+  color: #111;
+  font-weight: 400;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* HOVER EFFECT */
+.pf-blog-card:hover .pf-blog-img {
+  transform: scale(1.07);
+}
+
+/* ACTIONS */
+.pf-actions.top-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 120px;
+  z-index: 2;
+}
+
+.pf-action-btn {
+  background: #FE4A51;
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+.pf-action-btn.success {
+  background: #ffffff;
+  border: 1px solid #FE4A51;
+  color: #FE4A51;
+  padding: 8px 14px;
+  font-size: 14px
+
+}
+
+{% comment %} /* BADGES */
+.pf-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  background: #4CAF50;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+} {% endcomment %}
+
+.pf-badge.draft {
+  background: #ff9800;
+}
+
+
+/* TOP BAR */
+.pf-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* WRITE BUTTON */
+.pf-write-btn {
+  background: #FE4A51;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.pf-write-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.pf-joined {
+  font-size: 13px;
+  color: #6B7280;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ========================= */
+/* 📱 RESPONSIVE DESIGN */
+/* ========================= */
+
+/* Tablet */
+@media (max-width: 768px){
+    .pf-wrapper{
+        grid-template-columns: 1fr;
+    }
+
+    .pf-hero{
+        height: 180px;
+        padding: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px){
+
+    .pf-avatar{
+        width: 100px;
+        height: 100px;
+    }
+
+    .pf-avatar-wrap{
+        width: 100px;
+    }
+
+    .pf-avatar-btn{
+        width: 32px;
+        height: 32px;
+    }
+
+    .pf-avatar-btn i{
+        font-size: 14px;
+    }
+
+    .pf-tabs{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .pf-blog-grid{
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .pf-blog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pf-blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .pf-blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-blog-card {
+    height: 200px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .pf-wrapper {
+    flex-direction: column;
+  }
+
+  .pf-sidebar {
+    width: 100%;
+  }
+}
+
+</style>
+
+<!-- 🔥 HERO -->
+<div class="pf-hero">
+    
+</div>
+
+<div class="pf-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+    <div class="pf-sidebar">
+
+        <!-- PROFILE IMAGE UPLOAD -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="pf-avatar-wrap">
+
+                <img src="{{ profile.image.url }}" 
+                     alt="Profile Picture" 
+                     class="pf-avatar">
+
+                <input type="file" name="profile_image" id="avatarInput" hidden>
+
+                <label for="avatarInput" class="pf-camera">
+                    <i class="fa-solid fa-camera"></i>
+                </label>
+
+            </div>
+
+            <button type="submit" class="pf-btn">Upload</button>
+        </form>
+
+
+        <!-- USERNAME -->
+        <div class="pf-username">
+            <i class="fa-regular fa-user"></i> {{ user.username }}
+        </div>
+
+        <!-- JOINED DATE -->
+<div class="pf-joined">
+    <i class="fa-regular fa-calendar"></i>
+    Joined {{ user.date_joined|date:"F Y" }}
+</div>
+
+
+        <!-- BIO -->
+        <div class="pf-bio">
+            {{ profile.bio|default:"No bio yet." }}
+        </div>
+
+
+        <!-- EDIT BIO -->
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="bio" placeholder="Update bio..." class="pf-textarea"></textarea>
+            <button type="submit" class="pf-btn">
+                <i class="fa-solid fa-floppy-disk"></i> Save
+            </button>
+        </form>
+
+
+        <!-- STATS -->
+        <div class="pf-stats">
+            <div class="pf-stat">
+                <h3>{{ blog_count }}</h3>
+                <p><i class="fa-solid fa-book"></i> Published</p>
+            </div>
+            <div class="pf-stat">
+                <h3>{{ draft_count }}</h3>
+                <p><i class="fa-regular fa-file"></i> Drafts</p>
+            </div>
+        </div>
+
+
+        <!-- ACTIVITY -->
+        <div class="pf-activity">
+            <div class="pf-act-item">
+                <i class="fa-solid fa-heart"></i>
+                <span>{{ total_likes|default:"0" }} Likes</span>
+            </div>
+
+            <div class="pf-act-item">
+                <i class="fa-solid fa-comment"></i>
+                <span>{{ total_comments|default:"0" }} Comments</span>
+            </div>
+        </div>
+
+
+        <!-- LOGOUT -->
+        <a href="{% url 'logout' %}" class="pf-logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+
+    </div>
+
+
+    <!-- ================= CONTENT ================= -->
+    <div class="pf-content">
+
+<!-- 🔥 TOP BAR -->
+    <div class="pf-topbar">
+
+
+        <!-- TABS -->
+        <div class="pf-tabs">
+            <div class="pf-tab active">Published</div>
+            <div class="pf-tab">Drafts</div>
+        </div>
+
+        
+        <!-- WRITE BLOG BUTTON -->
+        <a href="{% url 'write' %}" class="pf-write-btn">
+            <i class="fa-solid fa-pen"></i> Write Blog
+        </a>
+
+    </div>
+
+
+        <!-- ================= PUBLISHED ================= -->
+        <div id="pf-published" class="pf-blog-grid">
+            {% for blog in blogs %}
+                <div class="pf-blog-card">
+
+                    <a href="{% url 'blog_detail' blog.id %}" class="pf-card-link">
+
+                        <img src="{{ blog.image.url }}" class="pf-blog-img">
+
+                        <div class="pf-blog-body">
+                            <div class="pf-blog-title">{{ blog.title }}</div>
+                        </div>
+
+                    </a>
+
+                    {% comment %} <div class="pf-badge">Published</div> {% endcomment %}
+
+                     <div class="pf-actions top-left">
+                        <a href="{% url 'edit_blog' blog.id %}" class="pf-action-btn">Edit</a>
+                        <a href="{% url 'unpublish_blog' blog.id %}" class="pf-action-btn success">Unpublish</a>
+                    </div> 
+
+                </div>
+            {% empty %}
+                <p>No blogs yet.</p>
+            {% endfor %}
+        </div>
+
+
+        <!-- ================= DRAFTS ================= -->
+        <div id="pf-drafts" class="pf-blog-grid" style="display:none;">
+            {% for blog in drafts %}
+                <div class="pf-blog-card">
+
+                    <a href="{% url 'blog_detail' blog.id %}" class="pf-card-link">
+
+                        <img src="{{ blog.image.url }}" class="pf-blog-img">
+
+                        <div class="pf-blog-body">
+                            <div class="pf-blog-title">{{ blog.title }}</div>
+                        </div>
+
+                    </a>
+
+                    {% comment %} <div class="pf-badge draft">Draft</div> {% endcomment %}
+
+                 <div class="pf-actions top-left">
+        <a href="{% url 'edit_blog' blog.id %}" class="pf-action-btn">Edit</a>
+        <a href="{% url 'publish_blog' blog.id %}" class="pf-action-btn success">Publish</a>
+    </div>
+
+
+                </div>
+            {% empty %}
+                <p>No drafts.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+const tabs = document.querySelectorAll(".pf-tab");
+const pub = document.getElementById("pf-published");
+const dra = document.getElementById("pf-drafts");
+
+tabs[0].onclick = () => {
+    tabs[0].classList.add("active");
+    tabs[1].classList.remove("active");
+    pub.style.display = "grid";
+    dra.style.display = "none";
+};
+
+tabs[1].onclick = () => {
+    tabs[1].classList.add("active");
+    tabs[0].classList.remove("active");
+    pub.style.display = "none";
+    dra.style.display = "grid";
+};
+
+const uploadBtn = document.getElementById("uploadBtn");
+const avatarInput = document.getElementById("avatarInput");
+const avatarPreview = document.getElementById("avatarPreview");
+
+uploadBtn.onclick = () => avatarInput.click();
+
+avatarInput.onchange = function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+        avatarPreview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+};
+
+
+total_likes = Blog.objects.filter(author=request.user).aggregate(
+    total=models.Count('likes')
+)['total']
+
+total_comments = Blog.objects.filter(author=request.user).aggregate(
+    total=models.Count('comments')
+)['total']
+
+</script>
+
+{% endblock %}

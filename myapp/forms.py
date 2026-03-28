@@ -8,10 +8,34 @@ from .models import Blog, BlogImage, Category, CustomUser
 
 
 class SignupForm(UserCreationForm):
+    username= forms.CharField(
+        widget=forms.TextInput(attrs={
+            "placeholder": "Enter Username", "class": "form-control"
+            })
+        )
+    
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(attrs={"placeholder": "Enter Email Id"}),
+        
     )
+    
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            "placeholder": "Enter Password",
+            "class": "form-control"
+        })
+    )
+    
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            "placeholder": "Confirm Password",
+            "class": "form-control"
+        })
+    )
+
+    
+    
 
     class Meta:
         model = CustomUser
@@ -49,6 +73,8 @@ class SignupForm(UserCreationForm):
             raise forms.ValidationError("Password must be at least 8 characters")
 
         return password
+    
+    
 
 
 class EmailAuthenticationForm(AuthenticationForm):

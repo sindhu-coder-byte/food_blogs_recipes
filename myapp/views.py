@@ -52,7 +52,38 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super().get(request, *args, **kwargs)
+    
 
+# views.py
+from django.contrib.auth.decorators import login_required
+from .models import Blog, Profile
+
+@login_required
+def profile_view(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == "POST":
+        # Image upload
+        if request.FILES.get("profile_image"):
+            profile.image = request.FILES["profile_image"]
+
+        # Bio update (safe)
+        profile.bio = request.POST.get("bio", "")  
+
+        profile.save()
+
+    blogs = Blog.objects.filter(author=request.user, is_published=True)
+    drafts = Blog.objects.filter(author=request.user, is_published=False)
+
+    context = {
+        'profile': profile,
+        'blogs': blogs,
+        'drafts': drafts,
+        'blog_count': blogs.count(),
+        'draft_count': drafts.count(),
+    }
+
+    return render(request, 'myapp/profile.html', context)
 
 from django.db.models import Count
 from django.shortcuts import redirect
@@ -111,10 +142,18 @@ class WriteView(LoginRequiredMixin, CreateView):
         form.instance.cook_time = self.request.POST.get("cook_time")
         form.instance.servings = self.request.POST.get("servings")
 
-        if not form.cleaned_data.get("layout"):
-            form.instance.layout = "main_thumbs"
 
-        self.object = form.save()
+        action = self.request.POST.get("action")
+
+        if action == "publish":
+          form.instance.is_published = True
+        else:
+          form.instance.is_published = False  
+
+        if not form.cleaned_data.get("layout"):
+           form.instance.layout = "main_thumbs"
+
+        self.object = form.save() 
 
         # =========================
         # ✅ STEP-BY-STEP SAVE FIXED
@@ -164,7 +203,7 @@ class WriteView(LoginRequiredMixin, CreateView):
             if images_saved >= 4:
                 break
 
-        return redirect(self.success_url)
+        return redirect("profile")
     
 from django.views.generic import DetailView, ListView
 from django.conf import settings
@@ -263,6 +302,7 @@ class BlogDetailView(DetailView):
 
         return redirect('blog_detail', pk=blog.pk)
 
+from django.db.models import Q
 
 class BlogListView(ListView):
     model = Blog
@@ -271,9 +311,24 @@ class BlogListView(ListView):
     paginate_by = 5 
 
     def get_queryset(self):
-        qs = Blog.objects.select_related("author", "category").prefetch_related(
+        qs = Blog.objects.filter(is_published=True).select_related(
+            "author", "category"
+        ).prefetch_related(
             "extra_images"
         ).order_by("-created_at")
+        
+        
+            # 🔍 SEARCH
+        query = (self.request.GET.get("q") or "").strip()
+
+        if query:
+          qs = qs.filter(
+               Q(title__icontains=query) |
+               Q(description__icontains=query) |
+               Q(ingredients__icontains=query)
+         )
+
+        
         category_slug = (self.request.GET.get("category") or "").strip()
         if category_slug:
             qs = qs.filter(category__slug=category_slug)
@@ -295,6 +350,8 @@ class BlogListView(ListView):
         ctx["ordered_categories_count"] = len(ordered)
         ctx["active_category"] = (self.request.GET.get("category") or "").strip()
         return ctx
+    
+    
 from django.views.generic import UpdateView
 
 class EditBlogView(LoginRequiredMixin, UpdateView):
@@ -364,4 +421,25 @@ class EditBlogView(LoginRequiredMixin, UpdateView):
 class RecipeView(TemplateView):
     template_name = "myapp/recipes.html"
     
+
+from django.shortcuts import get_object_or_404, redirect
+
+@login_required
+def publish_blog(request, id):
+    blog = get_object_or_404(Blog, id=id, author=request.user)
+
+    blog.is_published = True  
+    blog.save()
+
+    return redirect('profile') 
+
+
+@login_required
+def unpublish_blog(request, id):
+    blog = get_object_or_404(Blog, id=id, author=request.user)
+
+    blog.is_published = False  
+    blog.save()
+
+    return redirect("profile") 
 

@@ -12,6 +12,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', CustomLoginView.as_view(), name='login'),
+    # urls.py
+    path('profile/', views.profile_view, name='profile'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('write/', WriteView.as_view(), name='write'),
     path(
@@ -39,6 +41,8 @@ urlpatterns = [
     path('blogs/', BlogListView.as_view(), name='blogs'),
     path('recipes/', RecipeView.as_view(), name='recipes'),
     path('edit/<int:pk>/', EditBlogView.as_view(), name='edit_blog'),
+    path("blog/publish/<int:id>/", views.publish_blog, name="publish_blog"),
+    path("blog/unpublish/<int:id>/", views.unpublish_blog, name="unpublish_blog"),
 
 
 ]

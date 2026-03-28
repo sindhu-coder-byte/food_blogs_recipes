@@ -10,139 +10,179 @@
 <style>
 body {
   font-family: "Lato", sans-serif;
+  margin: 0;
 }
 
-/* Page */
+/* ================= PAGE ================= */
 .auth-page {
-  min-height: 50vh;
-  display: grid;
-  place-items: center;
-  padding: 80px 6vw 40px; /* 👈 top space for navbar */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 6vw 40px;
   background: url("{% static 'myapp/images/ChatGPT_Image3.png' %}") center / cover no-repeat;
+  position: relative;
 }
 
-/* Tablet */
-@media (max-width: 768px){
-  .auth-page{
-    padding: 80px 5vw 30px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 480px){
-  .auth-page{
-    padding: 70px 4vw 24px;
-  }
-}
-
-.auth-page::before{
-  content:"";
-  position: fixed;
+/* Overlay FIX */
+.auth-page::before {
+  content: "";
+  position: absolute;   /* ✅ FIXED */
   inset: 0;
-  background: rgba(177, 162, 162, 0.35);
-  pointer-events: none;
+  background: rgba(0, 0, 0, 0.35);
 }
 
+/* Content above overlay */
 .auth-page > * {
   position: relative;
   z-index: 1;
 }
 
-/* Card */
+/* ================= CARD ================= */
 .auth-card {
-  width: min(520px, 92vw);
-  background: rgba(255,255,255,.92);
+  width: 100%;
+  max-width: 420px;   /* ✅ better than 520 */
+  background: rgba(255,255,255,.95);
   border-radius: 18px;
   box-shadow: 0 18px 45px rgba(0,0,0,.18);
-  padding: 22px 22px 18px;
+  padding: 28px 24px;
   backdrop-filter: blur(10px);
 }
 
-@media (max-width: 480px){
-  .auth-card{
-    padding: 18px 16px;
-    border-radius: 14px;
-  }
-}
-
-/* Titles */
+/* ================= TITLES ================= */
 .auth-title {
   text-align: center;
   font-weight: 800;
-}
-
-@media (max-width: 480px){
-  .auth-title{
-    font-size: 1.3rem;
-  }
+  margin-bottom: 6px;
 }
 
 .auth-subtitle {
-  margin: 0 0 16px;
   text-align: center;
   color: #6B7280;
-  font-size: .95rem;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
 }
 
-/* Form */
+/* ================= FORM ================= */
 .auth-label {
-  display:block;
-  font-size: .9rem;
+  display: block;
+  font-size: 0.9rem;
   margin: 12px 0 6px;
 }
 
-.auth-input {
-  width: 80%;
+/* 🔥 FIX INPUT WIDTH */
+.auth-input,
+.auth-card input {
+  width: 100%;
   height: 44px;
   border-radius: 12px;
   padding: 0 12px;
+  border: 1px solid #C3C4C4;
+  outline: none;
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
 }
 
-@media (max-width: 480px){
-  .auth-input{
-    width: 100%;
+/* Focus effect */
+.auth-input:focus,
+.auth-card input:focus {
+  border-color: #FE4A51;
+  box-shadow: 0 0 0 2px rgba(254, 74, 81, 0.2);
+}
+
+/* ================= PASSWORD ================= */
+.password-wrapper {
+  position: relative;
+  width: 100%;   /* ✅ FIX */
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ================= LINKS ================= */
+.auth-link,
+.auth-footer a {
+  color: #FE4A51;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* ================= ERRORS ================= */
+.auth-errors {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #C81118;
+}
+
+.auth-errors ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ================= BUTTON ================= */
+.auth-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-actions button {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+}
+
+/* ================= FOOTER ================= */
+.auth-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 90px 5vw 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 80px 4vw 20px;
+  }
+
+  .auth-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .auth-title {
+    font-size: 1.3rem;
+  }
+
+  .auth-input,
+  .auth-card input {
     height: 42px;
   }
-}
 
-/* Errors */
-.auth-errors {
-  margin: 10px 0 0;
-  font-size: .85rem;
-}
-
-/* Buttons */
-.auth-actions {
-  margin-top: 16px;
-  display:flex;
-  justify-content:center;
-}
-
-@media (max-width: 480px){
-  .auth-actions{
-    width: 100%;
-  }
-
-  .auth-actions button{
-    width: 100%;
-  }
-}
-
-/* Footer */
-.auth-footer {
-  margin-top: 14px;
-  text-align:center;
-  font-size:.9rem;
-}
-
-.auth-footer a {
-  font-weight: 700;
-}
-
-@media (max-width: 480px){
-  .auth-footer{
-    font-size: .85rem;
-    line-height: 1.4;
+  .auth-footer {
+    font-size: 0.85rem;
   }
 }
 </style>
@@ -169,17 +209,27 @@ body {
       {% endif %}
 
       <label class="auth-label" for="{{ form.password.id_for_label }}">Password</label>
-      {{ form.password }}
+
+<div class="password-wrapper">
+  {{ form.password }}
+  <span class="toggle-password">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#6B7280" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M1 12s5-8 11-8 11 8 11 8-5 8-11 8S1 12 1 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  </span>
+</div>
       {% if form.password.errors %}
         <div class="auth-errors">{{ form.password.errors }}</div>
       {% endif %}
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 10px; flex-wrap:wrap; gap:10px;">
-        <a href="{% url 'password_reset' %}" style="color:#FE4A51; font-weight:700; text-decoration:none; font-size:.9rem;">
-          Forgot Password?
-        </a>
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
+       <div style="text-align:right; margin-top:10px;">
+  <a href="{% url 'password_reset' %}" class="auth-link">Forgot Password?</a>
+</div>
+
+<div class="auth-actions">
+  <button type="submit" class="btn btn-primary">Login</button>
+</div>
     </form>
 
     <div class="auth-footer">
@@ -190,5 +240,22 @@ body {
 
 <script>
   document.querySelectorAll('input').forEach((el) => el.classList.add('auth-input'));
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".toggle-password").forEach(icon => {
+    icon.addEventListener("click", function () {
+
+      // get input inside same wrapper (BEST METHOD)
+      const input = this.closest(".password-wrapper").querySelector("input");
+
+      if (!input) return;
+
+      input.type = input.type === "password" ? "text" : "password";
+
+    });
+  });
+
+});
 </script>
 {% endblock %}

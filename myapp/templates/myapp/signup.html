@@ -15,15 +15,28 @@
   background: url("{% static 'myapp/images/ChatGPT_Image3.png' %}") center / cover no-repeat;
 }
 
+.auth-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-page input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .auth-page::before {
   content:"";
   position: fixed;
   inset: 0;
   background: rgba(177, 162, 162, 0.35);
-  pointer-events: none;
+  z-index: 0; 
 }
 
-.auth-page > * { position: relative; z-index: 1; }
+.auth-page > * {
+  position: relative;
+  z-index: 2; /* 👈 increase */
+}
 
 .auth-page .auth-card {
   width: min(520px, 92vw);
@@ -56,7 +69,7 @@
 /* Scoped input style to avoid conflict */
 .auth-page input, 
 .auth-page .auth-input {
-  width: 80%;
+  width: 100%;
   height: 44px;
   border-radius: 12px;
   border: 1px solid rgba(195,196,196,.75);
@@ -96,6 +109,53 @@
   font-weight: 700; 
   text-decoration:none; 
 }
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 45px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 0;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password svg {
+  pointer-events: none; /* 🔥 MUST */
+}
+
+
+@media (max-width: 480px) {
+
+  .auth-page {
+    padding: 40px 12px;   /* 👈 reduce side space */
+  }
+
+  .auth-card {
+    padding: 18px 16px;   /* 👈 tighter card */
+    border-radius: 14px;
+  }
+
+  .auth-title {
+    font-size: 1.3rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.85rem;
+  }
+
+}
 </style>
 {% endblock %}
 
@@ -113,21 +173,43 @@
       {% endif %}
 
       <label class="auth-label" for="{{ form.username.id_for_label }}">Username</label>
-      {{ form.username }}
-      {% if form.username.help_text %}<span class="helptext">{{ form.username.help_text|safe }}</span>{% endif %}
-      {% if form.username.errors %}<div class="auth-errors">{{ form.username.errors }}</div>{% endif %}
+            {{ form.username }}
+                 <span class="helptext" style="display:none;">
+                       {{ form.username.help_text|safe }}
+                 </span>     
+          {% if form.username.errors %}
+                 <div class="auth-errors">{{ form.username.errors }}</div>{% endif %}
 
       <label class="auth-label" for="{{ form.email.id_for_label }}">Email</label>
-      {{ form.email }}
-      {% if form.email.errors %}<div class="auth-errors">{{ form.email.errors }}</div>{% endif %}
+             {{ form.email }}
+          {% if form.email.errors %}<div class="auth-errors">{{ form.email.errors }}</div>{% endif %}
 
-      <label class="auth-label" for="{{ form.password1.id_for_label }}">Password</label>
-      {{ form.password1 }}
-      {% if form.password1.help_text %}<span class="helptext">{{ form.password1.help_text|safe }}</span>{% endif %}
-      {% if form.password1.errors %}<div class="auth-errors">{{ form.password1.errors }}</div>{% endif %}
+     <label class="auth-label" for="{{ form.password1.id_for_label }}">Password</label>
+               <div class="password-wrapper">
+  {{ form.password1 }}
+  <span class="toggle-password" data-target="{{ form.password1.id_for_label }}">
+    <!-- Eye SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#6B7280" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  </span>
+</div>
+         
+                {% comment %} {{ form.password1.help_text|safe }} {% endcomment %}
+     {% if form.password1.errors %}<div class="auth-errors">{{ form.password1.errors }}</div>{% endif %}
 
       <label class="auth-label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
-      {{ form.password2 }}
+      <div class="password-wrapper">
+  {{ form.password2 }}
+  <span class="toggle-password" data-target="{{ form.password2.id_for_label }}">
+    <!-- Eye SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#6B7280" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  </span>
+</div>
       {% if form.password2.errors %}<div class="auth-errors">{{ form.password2.errors }}</div>{% endif %}
 
       <div class="auth-actions">
@@ -144,6 +226,24 @@
 
 {% block extra_js %}
 <script>
-  document.querySelectorAll('input').forEach((el) => el.classList.add('auth-input'));
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".toggle-password").forEach(icon => {
+
+    icon.addEventListener("click", function () {
+
+      const input = document.getElementById(this.dataset.target);
+
+      if (!input) return;
+
+      input.type = input.type === "password" ? "text" : "password";
+
+
+    });
+
+  });
+
+});
+
 </script>
 {% endblock %}

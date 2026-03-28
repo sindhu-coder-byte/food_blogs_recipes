@@ -178,8 +178,12 @@ body {
 }
 
 .write-cancel:hover {
-  background: #d1d5db;
+  /* background: #ffffff; */
   color: #000;
+}
+
+.write-cancel{
+  background-color:#ffffff
 }
 
 /* ===============================
