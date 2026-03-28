@@ -631,7 +631,11 @@ body {
 
                     <a href="{% url 'blog_detail' blog.id %}" class="pf-card-link">
 
-                        <img src="{{ blog.image.url }}" class="pf-blog-img">
+                        {% if blog.image %}
+  <img src="{{ blog.image.url }}" class="pf-blog-img">
+{% else %}
+  <img src="/media/default.jpg" class="pf-blog-img">
+{% endif %}
 
                         <div class="pf-blog-body">
                             <div class="pf-blog-title">{{ blog.title }}</div>
