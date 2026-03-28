@@ -55,57 +55,39 @@
 <!-- MAIN CONTENT -->
 <section class="blog-container">
 
-  
-  
+  <div class="blog-left">
+    {% for blog in blogs %}
+      <div class="blog-card-box">
+        {% with main_image=blog.image %}
+          {% if main_image %}
+            <img src="{{ main_image.url }}" alt="{{ blog.title }}">
+          {% else %}
+            <img src="{% static 'myapp/images/blog_pasta.jpg' %}" alt="{{ blog.title }}">
+          {% endif %}
+        {% endwith %}
 
-    <!-- Cards grid/list -->
- {% for blog in blogs %}
-  <div class="blog-card-box">
-    
-    {% with main_image=blog.image %}
-      
-      {% if main_image %}
-        <img src="{{ main_image.url }}" alt="{{ blog.title }}">
-      {% else %}
-        {% if forloop.counter|divisibleby:4 %}
-          <img src="{% static 'myapp/images/blog_brownies.jpg' %}" alt="{{ blog.title }}">
-        {% elif forloop.counter|divisibleby:3 %}
-          <img src="{% static 'myapp/images/blog_chicken.jpg' %}" alt="{{ blog.title }}">
-        {% elif forloop.counter|divisibleby:2 %}
-          <img src="{% static 'myapp/images/blog_mango.jpg' %}" alt="{{ blog.title }}">
-        {% else %}
-          <img src="{% static 'myapp/images/blog_pasta.jpg' %}" alt="{{ blog.title }}">
-        {% endif %}
-      {% endif %}
-      
-    {% endwith %}
+        <div class="blog-content-box">
+          <span class="blog-date">{{ blog.created_at|date:"M d, Y" }}</span>
+          <h2>{{ blog.title }}</h2>
+          <p>{{ blog.description }}</p>
 
-    <div class="blog-content-box">
-      <span class="blog-date">{{ blog.created_at|date:"M d, Y" }}</span>
-      <h2>{{ blog.title }}</h2>
-      <p>{{ blog.description }}</p>
+          <div class="blog-meta">
+            <span class="blog-readtime">📖 Read 5 min</span>
+          </div>
 
-      <div class="blog-meta">
-        <span class="blog-readtime">📖 Read 5 min</span>
+          <div class="blog-author">By, {{ blog.author.username }}</div>
+
+          <a href="{% url 'blog_detail' blog.id %}">
+            <button class="blog-btn" type="button">Read Now</button>
+          </a>
+        </div>
       </div>
-
-      <div class="blog-author">By, {{ blog.author.username }}</div>
-
-      <a href="{% url 'blog_detail' blog.id %}">
-        <button class="blog-btn" type="button">Read Now</button>
-      </a>
-    </div>
-
-  </div>
-{% empty %}
-  <div style="background:#fff; border:1px solid #E5E7EB; border-radius:14px; padding:18px; color:#6B7280;">
-    No blog posts found. Create one from 
-    <a href="{% url 'write' %}" style="color:#FE4A51; text-decoration:none; font-weight:700;">
-      Write
-    </a>.
-  </div>
-{% endfor %}
-
+    {% empty %}
+      <div style="background:#fff; border:1px solid #E5E7EB; border-radius:14px; padding:18px; color:#6B7280;">
+        No blog posts found. Create one from 
+        <a href="{% url 'write' %}" style="color:#FE4A51; font-weight:700;">Write</a>.
+      </div>
+    {% endfor %}
   </div>
 
   <!-- RIGHT -->
