@@ -286,83 +286,30 @@
 
 <section id="latest-blogs" class="section">
   <div class="section-header">
-    <div>
-      <h2>Latest Blogs</h2>
-    </div>
+    <h2>Latest Blogs</h2>
   </div>
 
   <div class="blog-grid">
-    <!-- Card 1 -->
-{% for blog in blogs %}
-<article class="blog-card">
-  <div class="blog-media">
-    <img src="{% static 'myapp/images/Image3.png' %}" alt="{{ blog.title }}" />
-    <span class="blog-badge">Quick Meals</span>
-  </div>
-
-  <div class="blog-body">
-    <h3>{{ blog.title }}</h3>
-
-    <p>
-      {{ blog.description|truncatewords:15 }}
-    </p>
-
-    {% if blog.pk %}
-      <a href="{% url 'blog_detail' blog.pk %}" class="read-more">
-        Read More <span>→</span>
-      </a>
-    {% endif %}
-  </div>
-</article>
-{% endfor %}
-
-    <!-- Card 2 -->
+    {% for blog in blogs %}
     <article class="blog-card">
       <div class="blog-media">
-        <img src="{% static 'myapp/images/Image45.jpg' %}" alt="Classic Chocolate Lava Cake" />
-        <span class="blog-badge">Desserts</span>
+        <img src="{% static 'myapp/images/Image3.png' %}" alt="{{ blog.title }}" />
+        <span class="blog-badge">Quick Meals</span>
       </div>
-      <div class="blog-body">
-        <h3>Classic Chocolate Lava Cake</h3>
-        <p>
-          Warm, gooey chocolate cake with a molten center that melts in your mouth.
-          Perfect for special evenings.
-        </p>
-        <a href="#" class="read-more">Read More <span>→</span></a>
-      </div>
-    </article>
 
-    <!-- Card 3 -->
-    <article class="blog-card">
-      <div class="blog-media">
-        <img src="{% static 'myapp/images/Image20.webp' %}" alt="Spicy Street-Style Chicken" />
-        <span class="blog-badge">Non-veg</span>
-      </div>
       <div class="blog-body">
-        <h3>Spicy Street-Style Chicken</h3>
-        <p>
-          Smoky, spicy, and packed with flavor—this quick chicken recipe is perfect
-          for weeknights.
-        </p>
-        <a href="#" class="read-more">Read More <span>→</span></a>
-      </div>
-    </article>
+        <h3>{{ blog.title }}</h3>
 
-    <!-- Card 4 -->
-    <article class="blog-card">
-      <div class="blog-media">
-        <img src="{% static 'myapp/images/quinoa-avocado-bowl-fb.webp' %}" alt="Healthy Bowl with Greens" />
-        <span class="blog-badge">Healthy</span>
-      </div>
-      <div class="blog-body">
-        <h3>Healthy Bowl with Greens</h3>
-        <p>
-          A nourishing bowl loaded with greens, protein, and a light dressing—simple,
-          fresh, and satisfying.
-        </p>
-        <a href="#" class="read-more">Read More <span>→</span></a>
+        <p>{{ blog.description|truncatewords:15 }}</p>
+
+        {% if blog.pk %}
+          <a href="{% url 'blog_detail' blog.pk %}" class="read-more">
+            Read More <span>→</span>
+          </a>
+        {% endif %}
       </div>
     </article>
+    {% endfor %}
   </div>
 </section>
 
