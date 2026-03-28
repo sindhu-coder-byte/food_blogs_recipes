@@ -187,7 +187,7 @@
 
                 <article class="recipe-card">
           <div class="recipe-media">
-          <img src="{% static 'myapp/images/inage18.jpg' %}" alt="Fresh Mediterranean Salad" />
+          <img src="{% static 'myapp/images/Image18.jpg' %}" alt="Fresh Mediterranean Salad" />
              <span class="badge badge-left">Receipe</span>
 
             <span class="badge badge-right">
@@ -304,12 +304,10 @@
           A rich and comforting pasta recipe made with fresh garlic, butter, and
           parmesan — ready in just 20 minutes.
         </p>
-
         {% if blog.pk %}
-    <a href="{% url 'blog_detail' blog.pk %}">
-      <button class="read-more">Read More <span>→</span></button>
-    </a>
-      {% endif %}
+        
+        <a href="{% url 'blog_detail' blog.pk %}" class="read-more">Read More <span>→</span></a>
+        {% endif %}
       </div>
     </article>
 
