@@ -27,7 +27,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 USE_X_FORWARDED_HOST = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://food-blogs-posts.onrender.com",
+    "https://food-blogs-recipes-5.onrender.com",
     "https://*.onrender.com"
 ]
 
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
-    'myapp',
+    'myapp.apps.MyappConfig', 
 ]
 
 
