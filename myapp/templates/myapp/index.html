@@ -293,9 +293,13 @@
     {% for blog in blogs %}
     <article class="blog-card">
       <div class="blog-media">
-        <img src="{% static 'myapp/images/Image3.png' %}" alt="{{ blog.title }}" />
-        <span class="blog-badge">Quick Meals</span>
-      </div>
+  {% if blog.image %}
+    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" />
+  {% else %}
+    <img src="{% static 'myapp/images/Image3.png' %}" alt="default image" />
+  {% endif %}
+<span class="blog-badge">{{ blog.category.name }}</span>     
+ </div>
 
       <div class="blog-body">
         <h3>{{ blog.title }}</h3>
