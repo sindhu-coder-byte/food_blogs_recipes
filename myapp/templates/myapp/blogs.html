@@ -56,6 +56,44 @@
 <section class="blog-container">
 
   <div class="blog-left">
+
+<!-- LEFT -->
+  <div class="blog-left">
+    <div class="blog-filter-bar">
+      <!-- Categories list (always visible like screenshot) -->
+      <div class="blog-categories" aria-label="Categories">
+        <div class="blog-categories-head">
+          <span>Categories</span>
+          <span class="arrow">⌄</span>
+        </div>
+
+        <div class="blog-categories-list">
+          <a class="blog-cat-row {% if not active_category %}active{% endif %}" href="{% url 'blogs' %}">
+            <span>All</span>
+          </a>
+          {% for c in ordered_categories %}
+            <a class="blog-cat-row {% if c.slug == active_category %}active{% endif %}" href="{% url 'blogs' %}?category={{ c.slug }}">
+              <span class="blog-cat-left">
+                <span class="blog-cat-index">{{ forloop.counter }}.</span>
+                <span>{{ c.name }}</span>
+              </span>
+              <span class="blog-cat-count">{{ c.post_count }}</span>
+            </a>
+          {% endfor %}
+          {% for c in extra_categories %}
+            <a class="blog-cat-row {% if c.slug == active_category %}active{% endif %}" href="{% url 'blogs' %}?category={{ c.slug }}">
+              <span class="blog-cat-left">
+                <span class="blog-cat-index">{{ forloop.counter|add:ordered_categories_count }}.</span>
+                <span>{{ c.name }}</span>
+              </span>
+              <span class="blog-cat-count">{{ c.post_count }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
     {% for blog in blogs %}
       <div class="blog-card-box">
         {% with main_image=blog.image %}
