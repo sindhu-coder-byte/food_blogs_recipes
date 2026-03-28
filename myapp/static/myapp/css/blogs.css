@@ -93,6 +93,7 @@ body {
   grid-template-columns: 2fr 1fr;
   gap: 30px;
   padding: 30px 60px;
+    align-items: start;
 }
 
 .blog-top-pagination-wrap {
