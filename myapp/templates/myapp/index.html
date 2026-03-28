@@ -293,23 +293,28 @@
 
   <div class="blog-grid">
     <!-- Card 1 -->
-    <article class="blog-card">
-      <div class="blog-media">
-        <img src="{% static 'myapp/images/Image3.png' %}" alt="Creamy Garlic Butter Pasta" />
-        <span class="blog-badge">Quick Meals</span>
-      </div>
-      <div class="blog-body">
-        <h3>Creamy Garlic Butter Pasta</h3>
-        <p>
-          A rich and comforting pasta recipe made with fresh garlic, butter, and
-          parmesan — ready in just 20 minutes.
-        </p>
-        {% if blog.pk %}
-        
-        <a href="{% url 'blog_detail' blog.pk %}" class="read-more">Read More <span>→</span></a>
-        {% endif %}
-      </div>
-    </article>
+{% for blog in blogs %}
+<article class="blog-card">
+  <div class="blog-media">
+    <img src="{% static 'myapp/images/Image3.png' %}" alt="{{ blog.title }}" />
+    <span class="blog-badge">Quick Meals</span>
+  </div>
+
+  <div class="blog-body">
+    <h3>{{ blog.title }}</h3>
+
+    <p>
+      {{ blog.description|truncatewords:15 }}
+    </p>
+
+    {% if blog.pk %}
+      <a href="{% url 'blog_detail' blog.pk %}" class="read-more">
+        Read More <span>→</span>
+      </a>
+    {% endif %}
+  </div>
+</article>
+{% endfor %}
 
     <!-- Card 2 -->
     <article class="blog-card">
