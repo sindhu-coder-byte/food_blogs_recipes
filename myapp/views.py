@@ -311,7 +311,7 @@ class BlogListView(ListView):
     paginate_by = 5 
 
     def get_queryset(self):
-        qs = Blog.objects.filter(is_published=True).select_related(
+        qs = Blog.objects.all().select_related(
             "author", "category"
         ).prefetch_related(
             "extra_images"
